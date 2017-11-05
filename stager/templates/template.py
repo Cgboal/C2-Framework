@@ -17,4 +17,3 @@ if __name__ == "__main__":
     url = "http://{{hostname}}/latest"
     filename = re.findall("filename=(.+)", urllib.urlopen(url).info().getheader("Content-Disposition"))[0]
     whl = urllib.urlretrieve(url, filename)
-    install('./%s' % filename)
