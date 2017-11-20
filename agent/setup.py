@@ -9,6 +9,6 @@ setup(name="Agent",
       license="MIT",
       packages=['agent'],
       install_requires=[
-
+          "docker"
       ],
-      )
+    )

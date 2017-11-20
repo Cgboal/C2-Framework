@@ -35,7 +35,7 @@ class AgentViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, request):
-        agent = Agent(name=request.data['name'])
+        agent = Agent(name=request.data['name'], os=request.data['os'])
         agent.save()
         serializer = AgentSerializer(agent)
         return Response(serializer.data)

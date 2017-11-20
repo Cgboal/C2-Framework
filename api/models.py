@@ -8,5 +8,6 @@ from django.db import models
 
 class Agent(models.Model):
     name = models.TextField(max_length=32)
+    os = models.TextField(max_length=256)
     installed_at = models.DateTimeField(auto_now_add=True)
     last_seen = models.DateTimeField(auto_now=True)
