@@ -2,7 +2,7 @@ import json
 from socket import gethostname
 from sys import platform
 
-from agent.agent.settings import *
+from .settings import *
 from .decorators import Request
 from .pycle import *
 
