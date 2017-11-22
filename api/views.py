@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from api.models import Agent
 from api.serializers import UserSerializer, GroupSerializer, AgentSerializer
 from django.shortcuts import render
+from uuid import uuid4
 
 # Create your views here.
 
@@ -35,8 +36,11 @@ class AgentViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, request):
-        agent = Agent(name=request.data['name'], os=request.data['os'])
+        uuid = uuid4()
+        if request.POST.get('uuid'):
+            uuid = request.POST.get('uuid')
+        agent, created = Agent.objects.get_or_create(uuid=uuid, name=request.POST.get('name'), os=request.POST.get('os'))
         agent.save()
         serializer = AgentSerializer(agent)
         return Response(serializer.data)
-
+                                                  

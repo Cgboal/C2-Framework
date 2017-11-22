@@ -1,5 +1,6 @@
 from urllib3 import PoolManager
 
+
 class Request(object):
 
     def __init__(self, host, port="80"):

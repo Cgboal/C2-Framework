@@ -17,4 +17,4 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class AgentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Agent
-        fields = ('id', 'name', 'os', 'installed_at', 'last_seen')
+        fields = ('uuid', 'name', 'os', 'installed_at', 'last_seen')
