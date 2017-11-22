@@ -1,4 +1,4 @@
-from lib.rest import *
+from .lib.rest import *
 
 
 
