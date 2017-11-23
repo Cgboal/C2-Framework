@@ -17,10 +17,11 @@ def StagerView(request):
 def LatestView(request):
     path = os.getcwd() + "/agent/dist/"
     whls = os.listdir(path)
-    p = re.compile("Agent-(\d.\d)")
-    versions = map(lambda x: float(p.match(x).group(1)), whls)
+    p = re.compile("Agent-(\d.\d.\d)")
+
+    versions = map(lambda x: "".join(p.match(x).group(1).split(".")), whls)
     latest = max(versions)
-    whl = "Agent-%s-py2-none-any.whl" % latest
+    whl = "Agent-%s-py2-none-any.whl" % ".".join(list(latest))
 
     with open(path + whl, 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/binary")
