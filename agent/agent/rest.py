@@ -11,7 +11,7 @@ from .db.SQLite import Helper
 class ApiHelper(object):
     def __init__(self):
         self.db = Helper()
-        self.fetch = Request(self.db.get_config('c2_host'), int(self.db.get_config('c2_port')))
+        self.fetch = Request(self.db.get_config('c2_host'), port=int(self.db.get_config('c2_port')))
 
 
 
