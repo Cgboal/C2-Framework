@@ -6,7 +6,6 @@ class Helper(object):
 
     def __init__(self):
         self.db_path = BASE_DIR + "/agent/db/agent.db"
-        print self.db_path
         self.create_tables()
         self.conn = sqlite3.connect(self.db_path)
 
@@ -22,6 +21,7 @@ class Helper(object):
             return list(value)[0]
         else:
             return None
+
     def set_config(self, k, v):
         c = self.conn.cursor()
         query = "INSERT OR REPLACE INTO config (id, key,  value) values ((SELECT id from config where key = '%s'),'%s', '%s')" % (k, k, v)

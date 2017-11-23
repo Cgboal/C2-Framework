@@ -19,7 +19,6 @@ def parse_args():
 def main(args=None):
     db = Helper()
     args = parse_args()
-    config = False
     if args.host:
         db.set_config('c2_host', args.host)
     if args.port:

