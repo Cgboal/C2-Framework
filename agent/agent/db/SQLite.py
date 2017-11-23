@@ -9,7 +9,6 @@ class Helper(object):
         print self.db_path
         self.create_tables()
         self.conn = sqlite3.connect(self.db_path)
-        #self.conn.text_factory = lambda x: x.decode("utf-8")
 
 
     def get_config(self, key):

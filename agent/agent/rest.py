@@ -28,9 +28,7 @@ class ApiHelper(object):
 
         @self.fetch('/api/agents/', proto="POST", data=data)
         def handle(resp):
-            print data
             print resp
             resp_json = json.loads(resp)
             self.db.set_config('uuid', resp_json['uuid'])
-
         handle()

