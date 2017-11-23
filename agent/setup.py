@@ -7,7 +7,7 @@ setup(name="Agent",
       author="Calum Boal",
       author_email="cgboal@protonmail.com",
       license="MIT",
-      packages=['agent'],
+      packages=['agent', 'agent.db'],
       entry_points={
             "console_scripts": [
                 'c2d = agent.__main__:main'

