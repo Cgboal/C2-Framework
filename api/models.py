@@ -12,3 +12,15 @@ class Agent(models.Model):
     os = models.TextField(max_length=256)
     installed_at = models.DateTimeField(auto_now_add=True)
     last_seen = models.DateTimeField(auto_now=True)
+
+class Group(models.Model):
+    name = models.TextField(max_length=128)
+
+
+class Agent_Group(models.Model):
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
+    agent_id = models.ForeignKey(Agent, on_delete=models.CASCADE)
+
+class Command(models.Model):
+    cmd = models.TextField(max_length=256)
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE)

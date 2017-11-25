@@ -2,11 +2,10 @@ import argparse
 from os import sys, path
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-from .rest import ApiHelper
+from .rest import *
 from .lib.persistance import PersistenceMGMT
 from .db.SQLite import Helper
 from .settings import commands
-
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -37,9 +36,9 @@ def init():
 
 def api_loop():
     from time import sleep
-    api = ApiHelper()
+    register()
     while True:
-        api.register()
+        beacon()
         sleep(10)
 
 
