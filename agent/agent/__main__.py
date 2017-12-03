@@ -38,8 +38,8 @@ def api_loop():
     from time import sleep
     register()
     while True:
-        cmd_id, cmd = beacon()
-        print cmd
+        cmds = beacon()
+        print cmds
         sleep(10)
 
 

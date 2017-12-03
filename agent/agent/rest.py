@@ -32,6 +32,11 @@ def register():
 
 @fetch('/api/commands/', data={"uuid", db.get_config('uuid')})
 def beacon(resp):
-    resp_json = json.loads(resp)
-    return resp_json[id], resp_json['cmd']
+    resps_json = []
+    for cmd in resps_json:
+        resps_json.append(json.loads(cmd))
+
+    cmds = map(lambda x: [x['id'], x['cmd']], resps_json)
+
+    return cmds
 

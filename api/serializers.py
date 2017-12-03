@@ -21,4 +21,4 @@ class AgentSerializer(serializers.HyperlinkedModelSerializer):
 class CommandSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Command
-        fields = ('cmd', 'group_id')
+        fields = ('id', 'cmd', 'group_id')

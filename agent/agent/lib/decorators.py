@@ -9,7 +9,7 @@ class Request(object):
         self.http = PoolManager()
         self.url = "http://%s:%s" % (self.host, self.port)
 
-    def __call__(self, uri, proto=None, data=None):
+    def __call__(self, uri, proto='GET', data=None):
         def decorator(callback):
             def wrapper():
                 resp = self.http.request(proto, self.url + uri, data).data
