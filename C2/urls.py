@@ -23,7 +23,6 @@ from dashboard.views import Index
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),
-    url(r'^install', StagerView),
-    url(r'^latest', LatestView),
-    url(r'^$', Index)
+    url(r'^', include('stager.urls')),
+    url(r'^', include('dashboard.urls'))
 ]

@@ -6,3 +6,6 @@ from django.shortcuts import render
 
 def Index(request):
     return render(request, template_name='index.html')
+
+def Command(request):
+    return render(request, template_name='tmpInterface.html')
