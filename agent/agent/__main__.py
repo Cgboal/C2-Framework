@@ -34,6 +34,7 @@ def init():
             persistence.persist(command)
     run()
 
+
 def api_loop():
     from time import sleep
     rest = Rester()
