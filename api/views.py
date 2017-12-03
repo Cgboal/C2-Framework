@@ -5,8 +5,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from api.models import Agent
-from api.serializers import UserSerializer, GroupSerializer, AgentSerializer
+from api.models import Agent, Command, Agent_Group, Agent_Command_History
+from api.serializers import UserSerializer, GroupSerializer, AgentSerializer, CommandSerializer
 from django.shortcuts import render
 from uuid import uuid4
 
@@ -43,4 +43,19 @@ class AgentViewSet(viewsets.ViewSet):
         agent.save()
         serializer = AgentSerializer(agent)
         return Response(serializer.data)
-                                                  
+
+class CommandViewSet(viewsets.ViewSet):
+
+    def list(self, request):
+        queryset = Command.objects.all()
+        serializer = CommandSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, uuid=None):
+        groups = Agent_Group.objects.filter(agent_id=uuid)
+        commands_raw = Command.objects.filter(group_id__in=groups.group_id)
+        commands_raw += Command.objects.filter(group_id=None)
+        command_history = Agent_Command_History.objects.filter(agent_id=uuid)
+        commands = commands_raw.exclude(id__in=command_history.id)
+        serializer = CommandSerializer(commands, many=True)
+        return Response(serializer.data)

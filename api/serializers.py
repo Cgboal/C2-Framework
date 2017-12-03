@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from api.models import Agent
+from api.models import Agent, Command
 
 
 # Serializers define the API representation.
@@ -18,3 +18,7 @@ class AgentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Agent
         fields = ('uuid', 'name', 'os', 'installed_at', 'last_seen')
+class CommandSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Command
+        fields = ('cmd', 'group_id')

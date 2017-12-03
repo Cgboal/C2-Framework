@@ -1,10 +1,9 @@
 from django.conf.urls import url, include
-from django.contrib import admin
-from stager.views import StagerView, LatestView
-from dashboard.views import Index
+from dashboard.views import IndexView, CommandView
 
 
 
 urlpatterns = [
-    url(r'^$', Index)
+    url(r'^$', IndexView),
+    url(r'^command/', CommandView)
 ]

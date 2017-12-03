@@ -5,8 +5,15 @@
     <title>C2</title>
 </head>
 <body>
-<form>
-    <input type="text" name="command" placeholder="Enter Command Here">
+<form name="cmdForm" action="" method="POST">
+    <input type="text" name="cmd" placeholder="Enter Command Here">
+    Group: <select name="group" form="cmdForm">
+    <option>All Agents</option>
+    {% for group in groups %}
+        <option value="{{ group.id }}">{{ group.name }}</option>
+    {% endfor %}
+    </select>
+    {% csrf_token %}
     <input type="submit" value="submit" name="submit">
 </form>
 </body>
