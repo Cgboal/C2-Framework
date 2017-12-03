@@ -29,8 +29,8 @@ class Rester():
         handle()
 
     def beacon(self):
-        data = {'uuid', self.db.get_config('uuid')}
-        @self.fetch('/api/commands/', data=data)
+
+        @self.fetch('/api/commands/', data={'uuid': self.db.get_config('uuid')})
         def handle(resp):
             resps_json = []
             for cmd in resp:
