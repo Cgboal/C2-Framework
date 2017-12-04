@@ -6,7 +6,7 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from api.models import Agent, Command, Agent_Group, Agent_Command_History
-from api.serializers import UserSerializer, GroupSerializer, AgentSerializer, CommandSerializer
+from api.serializers import UserSerializer, GroupSerializer, AgentSerializer, CommandSerializer, AgentCommandHistory
 from django.shortcuts import render
 from uuid import uuid4
 
@@ -58,4 +58,10 @@ class CommandViewSet(viewsets.ViewSet):
         command_history = Agent_Command_History.objects.filter(agent_id=uuid)
         commands = commands_raw.exclude(id__in=command_history.id)
         serializer = CommandSerializer(commands, many=True)
+        return Response(serializer.data)
+
+    def update(self, request, uuid=None, command_id=None):
+        command = Agent_Command_History(agent_id=uuid, command_id=command_id)
+        command.save()
+        serializer = AgentCommandHistory(command)
         return Response(serializer.data)

