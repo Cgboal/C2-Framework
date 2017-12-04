@@ -35,7 +35,7 @@ class Rester():
         return handle()
 
     def commandComplete(self, command_id):
-        @self.fetch('/api/commands/complete/', proto="POST", data={'uuid': self.db.get_config('uuid'), 'command_id': command_id})
+        @self.fetch('/api/complete/', proto="POST", data={'uuid': self.db.get_config('uuid'), 'command_id': command_id})
         def handle(resp):
             return json.loads(resp)
         return handle()

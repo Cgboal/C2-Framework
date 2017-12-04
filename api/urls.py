@@ -12,7 +12,7 @@ router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'agents', views.AgentViewSet, base_name='agent')
 router.register(r'commands', views.CommandViewSet, base_name='command')
-router.register(r'commands/complete', views.AgentCommandHistoryViewSet, base_name='command')
+router.register(r'complete', views.AgentCommandHistoryViewSet, base_name='complete')
 
 
 # Wire up our API using automatic URL routing.
