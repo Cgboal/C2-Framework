@@ -56,7 +56,7 @@ class CommandViewSet(viewsets.ViewSet):
         commands_raw = Command.objects.filter(group_id__in=groups.group_id)
         commands_raw += Command.objects.filter(group_id=None)
         command_history = Agent_Command_History.objects.filter(agent_id=uuid)
-        commands = commands_raw.exclude(id__in=command_history.id)
+        commands = commands_raw.exclude(id__in=command_history.command_id)
         serializer = CommandSerializer(commands, many=True)
         return Response(serializer.data)
 
