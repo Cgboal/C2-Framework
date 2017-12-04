@@ -34,6 +34,8 @@ def init():
             persistence.persist(command)
     run()
 
+def exec_cmd(cmd):
+    print cmd
 
 def api_loop():
     from time import sleep
@@ -41,7 +43,7 @@ def api_loop():
     rest.register()
     while True:
         cmds = rest.beacon()
-        print cmds
+        map(lambda cmd: exec_cmd(cmd['cmd']), cmds)
         sleep(10)
 
 
