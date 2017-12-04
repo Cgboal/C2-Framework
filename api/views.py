@@ -63,8 +63,8 @@ class CommandViewSet(viewsets.ViewSet):
 
 class AgentCommandHistoryViewSet(viewsets.ViewSet):
 
-    def create(self, request, uuid=None, command_id=None):
-        command = Agent_Command_History(agent_id=uuid, command_id=command_id)
+    def create(self, request):
+        command = Agent_Command_History(agent_id=request.POST.get('uuid'), command_id=request.POST.get('command_id'))
         command.save()
         serializer = AgentCommandHistory(command)
         return Response(serializer.data)
