@@ -17,7 +17,7 @@ def StagerView(request):
 def LatestView(request):
     path = os.getcwd() + "/agent/dist/"
     whls = os.listdir(path)
-    p = re.compile("C2F-Agent-(\d.\d.\d)")
+    p = re.compile("C2F_Agent-(\d.\d.\d)")
 
     versions = map(lambda x: "".join(p.match(x).group(1).split(".")), whls)
     latest = max(versions)
