@@ -29,9 +29,7 @@ if __name__ == "__main__":
     if len(host) == 2:
         port = host[1]
     host = host[0]
-    if {{ ssl }}:
-        subprocess.call(['c2d', '--c2-host', host, '--c2-port', port, '--ssl'])
-    else:
-        subprocess.call(['c2d', '--c2-host', host, '--c2-port', port])
+
+    subprocess.call(['c2d', '--c2-host', host, '--c2-port', port, '--ssl', "{{ssl}}"])
 
 
