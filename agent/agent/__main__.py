@@ -14,7 +14,8 @@ def parse_args():
     parser.add_argument('--c2-port', action='store', dest='port',
                         help='Set port for C2 server')
     parser.add_argument('--docker-registry-port', action='store', dest='d_port', help='Change the Docker Registry port'),
-    parser.add_argument('--docker-registry-host', action='store', dest='d_host', help='Change the Docker Registry host')
+    parser.add_argument('--docker-registry-host', action='store', dest='d_host', help='Change the Docker Registry host'),
+    parser.add_argument('--ssl', action='store', type=bool, dest='ssl', help="Enable or Disable C2 over SSL")
     args = parser.parse_args()
     return args
 
@@ -28,6 +29,8 @@ def update_config(db, args):
         db.set_config('d_host', args.d_host)
     if args.d_port:
         db.set_config('d_port', args.d_port)
+    if args.ssl:
+        db.set_config('ssl', args.ssl)
 
 
 def main(args=None):
