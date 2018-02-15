@@ -74,7 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'C2.wsgi.application'
 
-
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
