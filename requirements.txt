@@ -1,4 +1,4 @@
-Django
+Django<2
 djangorestframework
 markdown
 django-filter
