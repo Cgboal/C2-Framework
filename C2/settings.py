@@ -26,7 +26,7 @@ SECRET_KEY = '-y6^wb7bh6q3r1(ef&74)f)pv_y6f5$a7abx8$_1ogapp^q8$('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [u'c2.veldt.me', u'127.0.0.1']
+ALLOWED_HOSTS = [u'c2.veldt.me', u'127.0.0.1', u'localhost']
 
 
 # Application definition

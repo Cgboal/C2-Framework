@@ -18,9 +18,11 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
 
 class AgentViewSet(viewsets.ViewSet):
 
@@ -43,7 +45,6 @@ class AgentViewSet(viewsets.ViewSet):
         agent.save()
         serializer = AgentSerializer(agent)
         return Response(serializer.data)
-
 class CommandViewSet(viewsets.ViewSet):
 
     def list(self, request):
@@ -51,15 +52,15 @@ class CommandViewSet(viewsets.ViewSet):
         serializer = CommandSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def retrieve(self, request, uuid=None):
-        groups = Agent_Group.objects.filter(agent_id=uuid)
-        commands_raw = Command.objects.filter(group_id__in=groups.group_id)
-        commands_raw += Command.objects.filter(group_id=None)
-        command_history = Agent_Command_History.objects.filter(agent_id=uuid)
-        commands = commands_raw.exclude(id__in=command_history.command_id)
+    def retrieve(self, request, pk=None):
+        groups = Agent_Group.objects.filter(agent_id=pk).values_list('group_id', flat=True)
+        commands_group = Command.objects.filter(group_id__in=groups)
+        commands_all_agents = Command.objects.filter(group_id=None)
+        commands_raw = commands_group | commands_all_agents
+        command_history = Agent_Command_History.objects.filter(agent_id=pk).values_list('command_id', flat=True)
+        commands = commands_raw.exclude(id__in=command_history)
         serializer = CommandSerializer(commands, many=True)
         return Response(serializer.data)
-
 
 class AgentCommandHistoryViewSet(viewsets.ViewSet):
 

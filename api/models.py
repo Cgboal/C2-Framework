@@ -41,3 +41,9 @@ class Agent_Command_History(models.Model):
     agent_id = models.ForeignKey(Agent, on_delete=models.CASCADE)
     command_id = models.ForeignKey(Command, on_delete=models.CASCADE)
     completed = models.BooleanField(default=True)
+
+
+class Module(models.Model):
+    name = models.TextField(max_length=64)
+    container = models.TextField(max_length=256)
+    enabled = models.BooleanField(default=True)

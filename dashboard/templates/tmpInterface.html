@@ -12,6 +12,9 @@
     {% for group in groups %}
         <option value="{{ group.id }}">{{ group.name }}</option>
     {% endfor %}
+    {% for group in groups %}
+        <option value="{{ group.id }}">{{ group.name }}</option>
+    {% endfor %}
     </select>
     {% csrf_token %}
     <input type="submit" value="submit" name="submit">

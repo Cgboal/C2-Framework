@@ -29,7 +29,7 @@ class Rester():
         handle()
 
     def beacon(self):
-        @self.fetch('/api/commands/', data={'uuid': self.db.get_config('uuid')})
+        @self.fetch('/api/commands/%s' % self.db.get_config('uuid'))
         def handle(resp):
             return json.loads(resp)
         return handle()

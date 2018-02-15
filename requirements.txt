@@ -2,3 +2,4 @@ Django
 djangorestframework
 markdown
 django-filter
+python-crontab

@@ -33,7 +33,7 @@ class Helper(object):
     def create_tables(self):
         conn = sqlite3.connect(self.db_path)
         c = conn.cursor()
-        create_config_table = """CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY, key TEXT UNIQUE, value TEXT)"""
+        create_config_table = "CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY, key TEXT UNIQUE, value TEXT)"
         queries = [create_config_table]
         map(lambda x: c.execute(x), queries)
         c.close()
@@ -42,6 +42,6 @@ class Helper(object):
     def dump_config(self):
         c = self.conn.cursor()
 
-        for row in c.execute('SELECT * FROM config').fetchall():
+        for row in c.execute("SELECT * FROM config").fetchall():
             print row
 
