@@ -2,7 +2,7 @@
 *.sock
 *.sqlite3
 C2/settings/prod.py
-
+.idea
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
