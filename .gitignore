@@ -9,7 +9,7 @@ __pycache__/
 *.so
 
 *.sock
-
+*.sqlite3
 # Distribution / packaging
 .Python
 build/
