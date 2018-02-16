@@ -14,6 +14,7 @@ from uuid import uuid4
 
 
 # ViewSets define the view behavior.
+"""
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -22,7 +23,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-
+"""
 
 class AgentViewSet(viewsets.ViewSet):
 
