@@ -18,10 +18,25 @@ def index_view(request):
 
 class GroupCreateView(View):
     def __init__(self):
+        super(GroupCreateView, self).__init__()
         self.context = get_nav_context()
 
     def get(self, request):
         return render(request, template_name='group_create_form.html', context=self.context)
+
+    def post(self, request):
+        name = request.POST.get('group-name')
+        description = request.POST.get('description')
+        agents = request.POST.getlist('agent')
+        modules = request.POST.getlist('modules')
+        if name:
+            group = Group(name=name)
+            group.save()
+            for agent in agents:
+                agent = Agent.objects.get(uuid=agent)
+                agent_group = Agent_Group(agent_id=agent, group_id=group)
+                agent_group.save()
+        return render(request, template_name='index.html', context=self.context)
 
 
 def command_view(request):

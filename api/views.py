@@ -45,6 +45,8 @@ class AgentViewSet(viewsets.ViewSet):
         agent.save()
         serializer = AgentSerializer(agent)
         return Response(serializer.data)
+
+
 class CommandViewSet(viewsets.ViewSet):
 
     def list(self, request):
