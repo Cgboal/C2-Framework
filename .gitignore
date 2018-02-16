@@ -1,3 +1,9 @@
+# Custom ignores
+*.sock
+*.sqlite3
+C2/settings/prod.py
+
+
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
 # Byte-compiled / optimized / DLL files
@@ -8,8 +14,7 @@ __pycache__/
 # C extensions
 *.so
 
-*.sock
-*.sqlite3
+
 # Distribution / packaging
 .Python
 build/
