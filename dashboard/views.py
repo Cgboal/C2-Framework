@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
+from django.conf import settings
+from django.shortcuts import render, redirect
 from django.views import View
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from api.models import Group, Command, Agent_Command_History, Agent_Group, Agent, Module
 # Create your views here.
 
@@ -11,9 +14,30 @@ def get_nav_context():
     modules = Module.objects.all()
     return {"agents": agents, "groups": groups, "modules": modules}
 
-def index_view(request):
-    context = get_nav_context()
-    return render(request, template_name='index.html', context=context)
+
+class IndexView(View):
+
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect('/%s?next=%s' % (settings.LOGIN_URL, request.path))
+        context = get_nav_context()
+        return render(request, template_name='index.html', context=context)
+
+
+class LoginView(View):
+
+    def get(self, request):
+        return render(request, template_name='login.html')
+
+    def post(self, request):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            return render(request, template_name='login.html')
 
 
 class GroupCreateView(View):
@@ -38,7 +62,7 @@ class GroupCreateView(View):
                 agent_group.save()
         return render(request, template_name='index.html', context=self.context)
 
-
+@login_required
 def command_view(request):
     groups = Group.objects.all()
     context = {'groups': groups, 'status': ""}
