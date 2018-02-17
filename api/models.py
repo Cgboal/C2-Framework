@@ -47,3 +47,7 @@ class Module(models.Model):
     name = models.TextField(max_length=64)
     container = models.TextField(max_length=256)
     enabled = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+

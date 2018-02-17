@@ -8,8 +8,6 @@ from api import views
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
 router.register(r'agents', views.AgentViewSet, base_name='agent')
 router.register(r'commands', views.CommandViewSet, base_name='command')
 router.register(r'complete', views.AgentCommandHistoryViewSet, base_name='complete')
