@@ -26,24 +26,24 @@
                 </li>
               </ul>
                  <div class="clearfix"></div>
+            </div>
                 <div class="x_content">
                 <ul>
                     {% for agent in agents_group %}
-                        <li>
-                            <a href="/agent/{{ agent.uuid }}/">{{ agent.name }}</a>
-                            <form action="/group/{{ group.id }}/" method="post">
+                        <li class="row list-unstyled">
+                            <a class="col-md-9 col-sm-9 col-xs-9" href="/agent/{{ agent.uuid }}/">{{ agent.name }}</a>
+                            <form class="col-md-3 col-sm-3 col-xs-3" action="/group/{{ group.id }}/" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="agent_uuid" value="{{ agent.uuid }}">
-                                <input type="submit" name="action" value="delete">
+                                <input class="btn" type="submit" name="action" value="delete">
                             </form>
                         </li>
                     {% endfor %}
                 </ul>
                 </div>
             </div>
-          </div>
         </div>
-          <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="col-md-6 col-sm-6 col-xs-6">
           <div class="x_panel">
             <div class="x_title">
 
@@ -55,18 +55,17 @@
                 </li>
               </ul>
                 <div class="clearfix"></div>
+            </div>
                 <div class="x_content">
                     {% for module in modules_group %}
                         <a href="/module/{{ module.id }}/">{{ module.name }}</a>
                     {% endfor %}
                 </div>
-
             </div>
           </div>
         </div>
-      </div>
     </div>
-  </div>
+      </div>
 {% endblock content %}
 
 {% block javascripts %}
