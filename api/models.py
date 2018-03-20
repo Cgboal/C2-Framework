@@ -51,3 +51,9 @@ class Module(models.Model):
     def __str__(self):
         return self.name
 
+
+class Log(models.Model):
+    message = models.TextField()
+    type = models.TextField(max_length=5)
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)

@@ -1,29 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.contrib.auth.models import User, Group
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from api.models import Agent, Command, Agent_Group, Agent_Command_History
-from api.serializers import UserSerializer, GroupSerializer, AgentSerializer, CommandSerializer, AgentCommandHistory
+from api.models import Agent, Command, Agent_Group, Agent_Command_History, Log
+from api.serializers import UserSerializer, GroupSerializer, AgentSerializer, CommandSerializer, AgentCommandHistory,\
+    Group, LogSerializer
 from django.shortcuts import render
 from uuid import uuid4
 
 # Create your views here.
-
-
-# ViewSets define the view behavior.
-"""
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-"""
 
 class AgentViewSet(viewsets.ViewSet):
 
@@ -52,7 +39,7 @@ class CommandViewSet(viewsets.ViewSet):
 
     def list(self, request):
         queryset = Command.objects.all()
-        serializer = CommandSerializer(queryset, many=True)
+        serializer = CommandSerializer(queryset, context={'request': request}, many=True)
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
@@ -62,8 +49,9 @@ class CommandViewSet(viewsets.ViewSet):
         commands_raw = commands_group | commands_all_agents
         command_history = Agent_Command_History.objects.filter(agent_id=pk).values_list('command_id', flat=True)
         commands = commands_raw.exclude(id__in=command_history)
-        serializer = CommandSerializer(commands, many=True)
+        serializer = CommandSerializer(commands, context={'request': request}, many=True)
         return Response(serializer.data)
+
 
 class AgentCommandHistoryViewSet(viewsets.ViewSet):
 
@@ -74,3 +62,34 @@ class AgentCommandHistoryViewSet(viewsets.ViewSet):
         command_done.save()
         serializer = AgentCommandHistory(command_done, context={'request': request})
         return Response(serializer.data)
+
+
+class GroupViewSet(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Group.objects.all()
+        serializer = GroupSerializer(queryset, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Group.objects.all()
+        group = get_object_or_404(queryset, pk=pk)
+        serializer = GroupSerializer(group, context={'request': request})
+        return Response(serializer.data)
+
+
+class LogViewSet(viewsets.ViewSet):
+
+    def list(self, request):
+        queryset = Log.objects.all()
+        serializer = LogSerializer(queryset, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        agent = Agent.objects.get(uuid=request.POST.get('uuid'))
+        message = request.POST.get('message')
+        type = request.POST.get('type')
+        new_log = Log(message=message, type=type, agent=agent)
+        new_log.save()
+        serializer = LogSerializer(new_log, context={'request': request})
+        return Response(serializer.data)
+

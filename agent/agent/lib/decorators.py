@@ -12,7 +12,6 @@ class Request(object):
             self.url = "https://%s:%s" % (self.host, self.port)
         else:
             self.url = "http://%s:%s" % (self.host, self.port)
-        print self.url
 
     def __call__(self, uri, proto='GET', data=None):
         def decorator(callback):

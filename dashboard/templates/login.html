@@ -16,16 +16,13 @@
       <div class="animate form login_form">
         <section class="login_content">
           <form action="/login/" method="post">
-            <h1>Login</h1>
+            <h1>Authentication</h1>
             <div>
               <input name="username" type="text" class="form-control" placeholder="Username" required="" />
-            </div>
-            <div>
               <input name="password" type="password" class="form-control" placeholder="Password" required="" />
-            </div>
               {% csrf_token %}
-            <div>
-              <input class="btn btn-default submit" type="submit" value="Login">
+              <input class=" form-control"  type="submit" style="margin-left: 0px;" value="Login">
+
             </div>
 
             <div class="clearfix"></div>

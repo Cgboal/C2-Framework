@@ -31,7 +31,7 @@ class Rester():
         handle()
 
     def beacon(self):
-        @self.fetch('/api/commands/%s' % self.db.get_config('uuid'))
+        @self.fetch('/api/commands/%s/' % self.db.get_config('uuid'))
         def handle(resp):
             return json.loads(resp)
         return handle()
@@ -41,3 +41,18 @@ class Rester():
         def handle(resp):
             return json.loads(resp)
         return handle()
+
+    def log(self, message, type):
+        @self.fetch('/api/log/', proto="POST", data={'uuid': self.db.get_config('uuid'), 'message': message, 'type': type})
+        def handle(resp):
+            return json.loads(resp)
+        return handle()
+
+    def log_event(self, message):
+        self.log(message, 'event')
+
+    def log_action(self, message):
+        self.log(message, 'action')
+
+    def log_error(self, message):
+        self.log(message, 'error')

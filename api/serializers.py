@@ -1,6 +1,6 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from rest_framework import serializers
-from api.models import Agent, Command, Agent_Command_History
+from api.models import Agent, Command, Agent_Command_History, Group, Agent_Group, Log
 
 
 # Serializers define the API representation.
@@ -32,3 +32,9 @@ class AgentCommandHistory(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Agent_Command_History
         fields = ('id', 'command_id', 'completed')
+
+
+class LogSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Log
+        fields = ('id', 'message', 'type', 'agent', 'timestamp')

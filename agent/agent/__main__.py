@@ -2,8 +2,10 @@ import argparse
 from os import sys, path
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+import actions
 from .rest import Rester
 from .lib.persistance import PersistenceMGMT
+from .lib.containers import ContainerMGMT
 from .db.SQLite import Helper
 from .settings import commands
 
@@ -47,7 +49,13 @@ def init():
 
 def exec_cmd(cmd, cmd_id):
     rest = Rester()
-    print cmd
+    verbs = actions.verbs
+    parts = cmd.split(" ")
+    print verbs
+    if parts[0] in verbs:
+        print "ayy"
+        func = verbs[parts[0]]
+        func(parts)
     rest.commandComplete(cmd_id)
 
 
