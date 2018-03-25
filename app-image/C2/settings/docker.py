@@ -1,6 +1,6 @@
 from .dev import *
 import os
-ALLOWED_HOSTS = [u'127.0.0.1', 'master.veldt.me']
+ALLOWED_HOSTS = [u'127.0.0.1', 'master.veldt.me', u'172.17.0.5']
 
 STATIC_ROOT = "/data/app/static"
 
