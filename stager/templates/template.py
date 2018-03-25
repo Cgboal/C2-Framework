@@ -34,4 +34,3 @@ if __name__ == "__main__":
     else:
         subprocess.call(['c2d', '--c2-host', host, '--c2-port', port, '--no-ssl'])
 
-

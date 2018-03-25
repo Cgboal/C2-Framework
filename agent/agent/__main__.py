@@ -27,7 +27,7 @@ def update_config(db, args):
     if args.port:
         db.set_config('c2_port', args.port)
     if args.ssl is not None:
-        db.set_config('ssl', args.ssl)
+        db.set_config('ssl', str(args.ssl))
 
 
 def main(args=None):

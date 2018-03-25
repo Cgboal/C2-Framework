@@ -3,7 +3,7 @@
 *.sqlite3
 C2/settings/prod.py
 .idea
-
+.db
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
 # Byte-compiled / optimized / DLL files

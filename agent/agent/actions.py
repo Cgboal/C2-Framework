@@ -1,8 +1,11 @@
 import inspect, sys
 from .lib.containers import ContainerMGMT
 from rest import Rester
+
+
 containers = ContainerMGMT()
 rest = Rester()
+
 
 def pull(cmd, *args, **kwargs):
     if not containers.pull(cmd[1]):
