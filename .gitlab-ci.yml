@@ -21,18 +21,18 @@ deploy_production:
 migrate_make:
   stage: migrate
   environment:
-  name: Production
-  url: https://c2.veldt.me/
+    name: Production
+    url: https://c2.veldt.me/
   only:
     - master
   script:
    - python /var/www/C2-Framework/manage.py makemigrations --settings=C2.settings.prod
 
 migrate:
-   stage: migrate
+  stage: migrate
   environment:
-  name: Production
-  url: https://c2.veldt.me/
+    name: Production
+    url: https://c2.veldt.me/
   only:
     - master
   script:
