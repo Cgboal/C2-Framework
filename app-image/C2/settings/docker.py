@@ -2,7 +2,7 @@ from .dev import *
 import os
 ALLOWED_HOSTS = [u'127.0.0.1', 'master.veldt.me', u'172.17.0.5']
 
-STATIC_ROOT = "/data/app/static"
+STATIC_ROOT = "/static"
 
 if 'DB_NAME' in os.environ:
     # Running the Docker image

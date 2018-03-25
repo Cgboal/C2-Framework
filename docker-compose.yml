@@ -41,6 +41,7 @@ app:
     - .env
   volumes:
     - ./app-image:/data/app
+    - /static
 
 postgres:
   restart: always
