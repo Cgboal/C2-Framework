@@ -41,7 +41,6 @@ app:
     - .env
   volumes:
     - ./app-image:/data/app
-  command: /usr/bin/gunicorn C2.wsgi
 
 postgres:
   restart: always
