@@ -1,0 +1,7 @@
+DB_NAME=C2F
+DB_USER=postgres
+DB_PASS=postgress_pass
+DB_SERVICE=postgres
+DB_PORT=5432
+MY_DOMAIN_NAME=master.veldt.me
+EMAIL=cgboal@protonmail.com

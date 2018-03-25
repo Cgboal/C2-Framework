@@ -1,0 +1,61 @@
+nginx:
+  restart: always
+  build: ./nginx-image/
+  links:
+    - letsencrypt
+    - app:app
+  env_file: env
+  mem_limit: 2g
+  cpu_shares: 256
+  # restart: always
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes_from:
+    - letsencrypt
+    - app
+letsencrypt:
+  image: quay.io/letsencrypt/letsencrypt:latest
+  command:  bash -c "sleep 6 && certbot certonly --standalone -d $MY_DOMAIN_NAME --text --agree-tos --email $EMAIL --server https://acme-v01.api.letsencrypt.org/directory --rsa-key-size 4096 --verbose --renew-by-default --standalone-supported-challenges http-01"
+  entrypoint: ""
+  volumes:
+    - /etc/letsencrypt
+    - /var/lib/letsencrypt
+  ports:
+    - "80"
+    - "443"
+  env_file: env
+  environment:
+    - TERM=xterm
+
+app:
+  restart: always
+  build: ./app-image/
+  expose:
+    - "8000"
+  links:
+    - postgres:postgres
+  env_file: env
+  volumes:
+    - ./app-image:/data/app
+  command: /usr/bin/gunicorn C2.wsgi
+
+postgres:
+  restart: always
+  image: postgres:latest
+  volumes_from:
+    - data12
+  volumes:
+    - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    - ./backups/postgresql:/backup
+  env_file:
+    - env
+  expose:
+    - "5432"
+
+data:
+  restart: always
+  image: alpine:latest
+  volumes:
+    - /var/lib/postgresql
+  command: "true"

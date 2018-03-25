@@ -50,4 +50,4 @@ RUN /venv/bin/python manage.py migrate --noinput
 RUN echo "from django.contrib.auth.models import User; User.objects.filter(email='admin@example.com').delete(); User.objects.create_superuser('admin', 'admin@example.com', 'password')" | /venv/bin/python manage.py shell
 RUN chown
 # Start uWSGI
-CMD ["/venv/bin/uwsgi", "--http-auto-chunked", "--http-keepalive", "--static-map", "/static/=/static"]
+CMD ["/venv/bin/uwsgi", "--http-auto-chunked", "--http-keepalive"]
