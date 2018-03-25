@@ -6,7 +6,8 @@ stages:
 build_ardent:
   stage: build
   script:
-    - python agent/setup.py bdist_wheel
+    - cd agent
+    - python setup.py bdist_wheel
 
 deploy_production:
   stage: deploy
