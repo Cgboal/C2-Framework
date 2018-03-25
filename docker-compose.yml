@@ -4,7 +4,8 @@ nginx:
   links:
     - letsencrypt
     - app:app
-  env_file: env
+  env_file:
+    - .env
   mem_limit: 2g
   cpu_shares: 256
   # restart: always
@@ -24,7 +25,8 @@ letsencrypt:
   ports:
     - "80"
     - "443"
-  env_file: env
+  env_file:
+    - .env
   environment:
     - TERM=xterm
 
@@ -35,7 +37,8 @@ app:
     - "8000"
   links:
     - postgres:postgres
-  env_file: env
+  env_file:
+    - .env
   volumes:
     - ./app-image:/data/app
   command: /usr/bin/gunicorn C2.wsgi
@@ -44,12 +47,12 @@ postgres:
   restart: always
   image: postgres:latest
   volumes_from:
-    - data12
+    - data
   volumes:
     - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     - ./backups/postgresql:/backup
   env_file:
-    - env
+    - .env
   expose:
     - "5432"
 
