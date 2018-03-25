@@ -18,17 +18,7 @@ deploy_production:
     - master
   script:
     - echo "Copying files to webroot"
-    - rsync -av -delete . /var/www/C2-Framework/
-
-migrate_make:
-  stage: migrate
-  environment:
-    name: Production
-    url: https://c2.veldt.me/
-  only:
-    - master
-  script:
-   - python /var/www/C2-Framework/manage.py makemigrations --settings=C2.settings.prod
+    - sudo /home/gitlab-runner/deploy.sh
 
 migrate:
   stage: migrate
@@ -38,4 +28,4 @@ migrate:
   only:
     - master
   script:
-   - python /var/www/C2-Framework/manage.py migrate --settings=C2.settings.prod
+   - sudo /home/gitlab-runner/migrate.sh
