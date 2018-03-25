@@ -1,7 +1,7 @@
 stages:
-- build
-- deploy
-- migrate
+  - build
+  - deploy
+  - migrate
 
 build_ardent:
   script:
