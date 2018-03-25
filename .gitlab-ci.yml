@@ -4,6 +4,7 @@ stages:
   - migrate
 
 build_ardent:
+  stage: build
   script:
     - python agent/setup.py bdist_wheel
 
