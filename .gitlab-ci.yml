@@ -1,0 +1,4 @@
+build_ardent:
+  script:
+    - python /agent/setup.py bdist_wheel
+
