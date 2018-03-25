@@ -64,7 +64,7 @@ sed -i "s/___my.example.com___/$MY_DOMAIN_NAME/g" /etc/nginx/nginx-secure.conf
 
 # Add LE container IP and port into config
 sed -i "s/___LETSENCRYPT_IP___/$LETSENCRYPT_PORT_80_TCP_ADDR/g" /etc/nginx/nginx-secure.conf
-sed -i "s/___LETSENCRYPT_PORT___/$LETSENCRYPT_PORT_80_TC1P_PORT/g" /etc/nginx/nginx-secure.conf
+sed -i "s/___LETSENCRYPT_PORT___/$LETSENCRYPT_PORT_80_TCP_PORT/g" /etc/nginx/nginx-secure.conf
 sed -i "s/___LETSENCRYPT_HTTPS_IP___/$LETSENCRYPT_PORT_443_TCP_ADDR/g" /etc/nginx/nginx-secure.conf
 sed -i "s/___LETSENCRYPT_HTTPS_PORT___/$LETSENCRYPT_PORT_443_TCP_PORT/g" /etc/nginx/nginx-secure.conf
 
