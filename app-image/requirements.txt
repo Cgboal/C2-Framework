@@ -3,4 +3,5 @@ djangorestframework
 markdown
 django-filter
 python-crontab
+psycopg2
 uwsgi
