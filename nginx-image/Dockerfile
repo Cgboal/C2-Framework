@@ -1,7 +1,7 @@
 FROM nginx
 MAINTAINER Calum Boal - "cgboal@protonmail.com"
 
-RUN apk --no-cache add procps util-linux pciutils usbutils coreutils binutils findutils grep
+RUN apt-get update && apt-get install -y procps grep gawk
 
 COPY start.sh /
 COPY nginx.conf /etc/nginx/
