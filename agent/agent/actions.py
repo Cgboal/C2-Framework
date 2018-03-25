@@ -3,11 +3,9 @@ from .lib.containers import ContainerMGMT
 from rest import Rester
 
 
-containers = ContainerMGMT()
-rest = Rester()
-
-
 def pull(cmd, *args, **kwargs):
+    containers = ContainerMGMT()
+    rest = Rester()
     if not containers.pull(cmd[1]):
         rest.log_error("Failed to pull image %s" % cmd[1])
     rest.log_event("Image %s pulled" % cmd[1])
