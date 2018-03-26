@@ -15,8 +15,6 @@ nginx:
   volumes_from:
     - letsencrypt
     - app
-  volumes:
-    - static-content:/static
 letsencrypt:
   image: quay.io/letsencrypt/letsencrypt:latest
   #Production
@@ -47,7 +45,7 @@ app:
     - .env
   volumes:
     - ./app-image:/data/app
-    - static-content:/static
+    - "/static"
 
 postgres:
   restart: always
@@ -55,7 +53,6 @@ postgres:
   volumes_from:
     - data
   volumes:
-    - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     - ./backups/postgresql:/backup
   env_file:
     - .env
@@ -66,8 +63,5 @@ data:
   restart: always
   image: alpine:latest
   volumes:
-    - /var/lib/postgresql/data
+    - "/var/lib/postgresql/data"
   command: "/bin/true"
-
-volumes:
-  static-content:
