@@ -112,3 +112,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+!dashboard/static/vendors/bootstrap/dist
