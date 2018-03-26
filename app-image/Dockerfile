@@ -2,7 +2,7 @@ FROM python:3.5-alpine
 
 # Copy in your requirements file
 ADD requirements.txt /requirements.txt
-
+ADD entrypoint.sh /entrypoint.sh
 # OR, if you’re using a directory for your requirements, copy everything (comment out the above and uncomment this if so):
 # ADD requirements /requirements
 
@@ -45,8 +45,6 @@ ENV UWSGI_VIRTUALENV=/venv UWSGI_WSGI_FILE=C2/wsgi.py UWSGI_HTTP=:8000 UWSGI_MAS
 
 # Call collectstatic (customize the following line with the minimal environment variables needed for manage.py to run):
 RUN DATABASE_URL=none /venv/bin/python manage.py collectstatic --noinput
-RUN /venv/bin/python manage.py makemigrations --noinput
-RUN /venv/bin/python manage.py migrate --noinput
-RUN echo "from django.contrib.auth.models import User; User.objects.filter(email='admin@example.com').delete(); User.objects.create_superuser('admin', 'admin@example.com', 'password')" | /venv/bin/python manage.py shell
+
 # Start uWSGI
 CMD ["/venv/bin/uwsgi", "--http-auto-chunked", "--http-keepalive"]

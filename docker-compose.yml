@@ -36,6 +36,7 @@ letsencrypt:
 app:
   restart: always
   build: ./app-image/
+  entrypoint: /entrypoint.sh
   expose:
     - "8000"
   links:
