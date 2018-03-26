@@ -49,6 +49,8 @@ app:
 postgres:
   restart: always
   image: postgres:latest
+  depends_on:
+    - "data"
   volumes_from:
     - data
   volumes:
@@ -63,5 +65,5 @@ data:
   restart: always
   image: alpine:latest
   volumes:
-    - /var/lib/postgresql
-  command: "true"
+    - /var/lib/postgresql/data
+  command: "/bin/true"

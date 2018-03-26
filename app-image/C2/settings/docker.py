@@ -2,7 +2,7 @@ from .dev import *
 import os
 ALLOWED_HOSTS = ["*"]
 
-STATIC_ROOT = "/static"
+STATIC_ROOT = "/static/"
 
 if 'DB_NAME' in os.environ:
     # Running the Docker image
