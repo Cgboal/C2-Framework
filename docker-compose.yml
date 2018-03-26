@@ -49,8 +49,6 @@ app:
 postgres:
   restart: always
   image: postgres:latest
-  depends_on:
-    - "data"
   volumes_from:
     - data
   volumes:
