@@ -18,6 +18,7 @@ nginx:
 letsencrypt:
   image: quay.io/letsencrypt/letsencrypt:latest
   #command:  bash -c "sleep 6 && certbot certonly --standalone -d $MY_DOMAIN_NAME --text --agree-tos --email $EMAIL --server https://acme-v01.api.letsencrypt.org/directory --rsa-key-size 4096 --verbose --renew-by-default --standalone-supported-challenges http-01"
+  command: bash -c "sleep 1"
   entrypoint: ""
   volumes:
     - ./certs:/etc/letsencrypt
