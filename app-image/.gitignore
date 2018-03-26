@@ -113,3 +113,4 @@ venv.bak/
 .mypy_cache/
 
 !dashboard/static/vendors/bootstrap/dist
+!dashboard/static/*
