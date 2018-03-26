@@ -9,7 +9,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def StagerView(request):
-    hostname = request.META['HTTP_HOST']
+    hostname = os.environ["MY_DOMAIN_NAME"]
     if request.is_secure():
         ssl = True
     else:
