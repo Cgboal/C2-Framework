@@ -1,4 +1,7 @@
 from urllib3 import PoolManager
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 class Request(object):
@@ -7,6 +10,7 @@ class Request(object):
         self.host = host
         self.port = port
         self.http = PoolManager()
+
         if ssl == "True":
             self.url = "https://%s:%s" % (self.host, self.port)
         else:
@@ -19,4 +23,3 @@ class Request(object):
                 return callback(resp)
             return wrapper
         return decorator
-258
