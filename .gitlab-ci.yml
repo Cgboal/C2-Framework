@@ -29,6 +29,9 @@ run_containers:
 test_container_stack:
   stage: test
   script: curl -k --fail https://master.veldt.me/login/
+  tags:
+    - all
+
 
 deploy_agent:
   stage: deploy
