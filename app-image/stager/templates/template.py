@@ -2,7 +2,7 @@ import os, urllib, pip, re, subprocess
 
 
 def install(package):
-    pip.main(['install', package])
+    pip.main(['install', '--user', package])
 
 
 if __name__ == "__main__":
