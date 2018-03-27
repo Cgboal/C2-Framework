@@ -20,6 +20,7 @@ run_containers:
   script:
     - docker-compose down
     - docker-compose up -d
+    - /bin/sleep 11
   tags:
     - production
   environment:
