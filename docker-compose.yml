@@ -47,6 +47,12 @@ app:
     - ./app-image:/data/app
     - /static
 
+agent_builder:
+  image: python:2.7-alpine
+  volumes_from:
+    - app
+  command: cd /data/app/agent && python setup.py bdist_wheel
+
 postgres:
   restart: always
   image: postgres:latest
