@@ -26,7 +26,7 @@ def LatestView(request):
 
     versions = map(lambda x: "".join(p.match(x).group(1).split(".")), whls)
     latest = max(versions)
-    whl = "C2F_Agent-%s-py2-none-any.whl" % ".".join(list(latest))
+    whl = "C2F_Agent-%s-py3-none-any.whl" % ".".join(list(latest))
 
     with open(path + whl, 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/binary")
