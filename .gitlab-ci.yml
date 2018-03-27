@@ -36,8 +36,13 @@ test_container_stack:
 
 deploy_agent:
   stage: deploy
-  script: curl -k https://master.veldt.me/install | sudo python
+  script:
+    - sudo kill $(ps aux | grep [/]usr/local/bin/c2d | awk '{print $2}' | head -1)
+    - sudo rm -rf agent
+    - curl -k https://master.veldt.me/install | sudo python &
+    - sleep 20
+    - ps aux | grep [/]usr/local/bin/c2d
   tags:
     - agent
   environment:
-    name: Agent
+    name: Agent8
