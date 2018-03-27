@@ -23,7 +23,7 @@ letsencrypt:
   command: bash -c "sleep 6 && certbot certonly --staging --standalone -d $MY_DOMAIN_NAME --text --agree-tos --email $EMAIL --rsa-key-size 4096 --verbose --keep-until-expiring --standalone-supported-challenges http-01"
   entrypoint: ""
   volumes:
-    - ./certs:/etc/letsencrypt
+    - /etc/C2F/certs:/etc/letsencrypt
     - /var/lib/letsencrypt
   ports:
     - "80"
@@ -45,7 +45,7 @@ app:
     - .env
   volumes:
     - ./app-image:/data/app
-    - "/static"
+    - /static
 
 postgres:
   restart: always
@@ -63,5 +63,5 @@ data:
   restart: always
   image: alpine:latest
   volumes:
-    - "/var/lib/postgresql/data"
+    - var/lib/postgresql/data
   command: "/bin/true"

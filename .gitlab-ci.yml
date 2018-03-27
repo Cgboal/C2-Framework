@@ -1,6 +1,7 @@
 stages:
   - build
   - run
+  - test
   - deploy
 
 build_containers:
@@ -18,12 +19,20 @@ run_containers:
   stage: run
   script:
     - docker-compose down
-    - docker-compose up
+    - docker-compose up -d
   tags:
     - production
   environment:
     name: Production
     url: https://master.veldt.me/
+
+test_container_stack:
+  stage: test
+  script: curl -k --fail https://master.veldt.me/login/
+  tags:
+    - agent
+    - production
+
 
 deploy_agent:
   stage: deploy
