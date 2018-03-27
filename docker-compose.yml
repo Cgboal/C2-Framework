@@ -52,8 +52,6 @@ postgres:
   image: postgres:latest
   volumes_from:
     - data
-  volumes:
-    - ./backups/postgresql:/backup
   env_file:
     - .env
   expose:
