@@ -45,4 +45,4 @@ deploy_agent:
   tags:
     - agent
   environment:
-    name: Agent8
+    name: Agent
