@@ -20,7 +20,7 @@ def StagerView(request):
 
 
 def LatestView(request):
-    path = os.getcwd() + "/agent/dist/"
+    path = "/data/app/agent/dist/"
     whls = os.listdir(path)
     p = re.compile("C2F_Agent-(\d.\d.\d)")
 
