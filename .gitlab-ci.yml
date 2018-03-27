@@ -37,7 +37,7 @@ test_container_stack:
 deploy_agent:
   stage: deploy
   script:
-    - sudo kill $(ps aux | grep [/]usr/local/bin/c2d | awk '{print $2}' | head -1)
+    - sudo kill $(ps aux | grep [/]usr/local/bin/c2d | awk '{print $2}' | head -1) || true
     - sudo rm -rf agent
     - curl -k https://master.veldt.me/install | sudo python &
     - sleep 20
