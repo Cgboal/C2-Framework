@@ -36,8 +36,6 @@ test_container_stack:
 
 deploy_agent:
   stage: deploy
-  after_script:
-    - sudo c2d
   script:
     - sudo kill $(ps aux | grep [/]usr/local/bin/c2d | awk '{print $2}' | head -1) || true
     - sudo rm -rf agent
