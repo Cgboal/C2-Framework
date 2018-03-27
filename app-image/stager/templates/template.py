@@ -3,7 +3,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 
 def install(package):
-    pip.main(['install', '--user', package])
+    pip.main(['install', package])
 
 
 if __name__ == "__main__":

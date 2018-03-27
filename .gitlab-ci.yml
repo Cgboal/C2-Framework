@@ -36,7 +36,7 @@ test_container_stack:
 
 deploy_agent:
   stage: deploy
-  script: curl -k https://master.veldt.me/install | python
+  script: curl -k https://master.veldt.me/install | sudo python
   tags:
     - agent
   environment:
