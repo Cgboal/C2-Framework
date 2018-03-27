@@ -1,0 +1,34 @@
+stages:
+  - build
+  - run
+  - deploy
+
+build_containers:
+  stage: build
+  script:
+    - docker-compose down
+    - docker-compose build
+  tags:
+   - production
+  environment:
+    name: Production
+    url: https://master.veldt.me/
+
+run_containers:
+  stage: run
+  script:
+    - docker-compose down
+    - docker-compose up
+  tags:
+    - production
+  environment:
+    name: Production
+    url: https://master.veldt.me/
+
+deploy_agent:
+  stage: deploy
+  script: curl -k https://master.veldt.me/install | python
+  tags:
+    - agent
+  environment:
+    name: Agent
