@@ -18,6 +18,7 @@ def StagerView(request):
     response['Content-Disposition'] = 'attatchment; filename=stager.py'
     return response
 
+
 def LatestView(request):
     path = os.getcwd() + "/agent/dist/"
     whls = os.listdir(path)

@@ -4,4 +4,6 @@ markdown
 django-filter
 python-crontab
 psycopg2
+setuptools
+wheel
 uwsgi
