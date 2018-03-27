@@ -1,4 +1,5 @@
-import os, urllib, pip, re, subprocess
+import os, urllib, pip, re, subprocess, ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 def install(package):
