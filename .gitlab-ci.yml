@@ -33,7 +33,6 @@ test_container_stack:
   tags:
     - agent
 
-
 deploy_agent:
   stage: deploy
   script:

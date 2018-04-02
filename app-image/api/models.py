@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-s
 from __future__ import unicode_literals
-
 from django.db import models
+from modules.models import *
 from uuid import uuid4
 # Create your models here.
 
