@@ -1,1 +1,1 @@
-from lib.nmap import *
+from .lib.nmap import *
