@@ -1,5 +1,5 @@
 from django.db import models
-from lib.templates import ModelTemplate
+from .lib.templates import ModelTemplate
 
 
 class Descriptor(object):
