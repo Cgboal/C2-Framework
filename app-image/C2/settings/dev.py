@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'dashboard',
     'api',
     'stager',
-    'modules',
+
 ]
 
 MIDDLEWARE = [

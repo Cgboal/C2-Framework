@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-s
 from __future__ import unicode_literals
+import api.modules
 from django.db import models
-from modules.models import *
 from uuid import uuid4
+from api.helpers import import_modules
+import_modules(api.modules)
+
+
 # Create your models here.
 
 
@@ -45,11 +49,16 @@ class Agent_Command_History(models.Model):
 
 class Module(models.Model):
     name = models.TextField(max_length=64)
-    container = models.TextField(max_length=256)
+    image = models.TextField(max_length=256, unique=True)
     enabled = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
+
+
+class Agent_Module(models.Model):
+    agent_id = models.ForeignKey(Agent, on_delete=models.CASCADE)
+    module_id = models.ForeignKey(Module, on_delete=models.CASCADE)
 
 
 class Log(models.Model):
