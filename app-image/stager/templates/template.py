@@ -9,12 +9,6 @@ def install(package):
 if __name__ == "__main__":
     install('wheel')
 
-    try:
-        os.mkdir('agent')
-    except Exception, e:
-        print e
-
-    os.chdir('agent')
     if {{ ssl }}:
         url = "https://{{hostname}}/latest"
         port = '443'

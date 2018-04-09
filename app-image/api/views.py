@@ -101,7 +101,7 @@ class LogViewSet(viewsets.ViewSet):
 class ReportViewSet(viewsets.ViewSet):
 
     def create(self, request):
-        post_data = json.loads(request.POST)
+        post_data = json.loads(request.body)
         module_id = post_data['module_id']
         agent_id = post_data['agent_id']
 
