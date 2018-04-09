@@ -19,4 +19,4 @@ class Command(BaseCommand):
                     instance = class_()
                     m = Module(name=instance.name, image=instance.image)
                     m.save()
-                    print "Added module %s" % instance.name
+                    print("Added module %s" % instance.name)
