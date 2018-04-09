@@ -11,5 +11,5 @@ admin.site.register(Agent)
 admin.site.register(Agent_Group)
 admin.site.register(Module)
 admin.site.register(Agent_Module)
-for name, model in get_module_models(import_modules(api.modules)).iteritems():
+for name, model in get_module_models(import_modules(api.modules)).items():
     admin.site.register(model)
