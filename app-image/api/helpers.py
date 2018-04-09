@@ -10,3 +10,14 @@ def import_modules(package):
         clsmembers = inspect.getmembers(sys.modules[modname], inspect.isclass)
         module_list.append((module, clsmembers))
     return module_list
+
+
+def get_module_models(module_list):
+    from modules.lib.templates import ModelTemplate
+    module_models = {}
+    for module in module_list:
+        for member in module[1]:
+            mname = member[0]
+            if issubclass(member[1], ModelTemplate):
+                module_models[mname] = member[1]
+    return module_models

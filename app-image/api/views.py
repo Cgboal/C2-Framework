@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import json
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponseForbidden, HttpResponse
+from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from api.models import Agent, Command, Agent_Group, Agent_Command_History, Log
+from api.models import *
 from api.serializers import UserSerializer, GroupSerializer, AgentSerializer, CommandSerializer, AgentCommandHistory,\
     Group, LogSerializer
-from django.shortcuts import render
 from uuid import uuid4
 
 # Create your views here.
@@ -93,3 +97,27 @@ class LogViewSet(viewsets.ViewSet):
         serializer = LogSerializer(new_log, context={'request': request})
         return Response(serializer.data)
 
+
+class ReportViewSet(viewsets.ViewSet):
+
+    def create(self, request):
+        post_data = json.loads(request.POST)
+        module_id = post_data['module_id']
+        agent_id = post_data['agent_id']
+
+        module = Module.objects.get(id=module_id)
+        agent = Agent.objects.get(uuid=agent_id)
+
+        try:
+            agent_module = Agent_Module.objects.get(agent_id=agent_id, module_id=module_id)
+        except ObjectDoesNotExist:
+            return HttpResponseForbidden()
+
+        post_data['data']['agent_id'] = agent_id
+        new_entry = module_models[post_data['table']](**post_data['data'])
+        new_entry.save()
+        return HttpResponse(status=200)
+
+    # TODO add update method
+    # def update(self, request, pk=None):
+    #   pass
