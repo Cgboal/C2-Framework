@@ -1,4 +1,4 @@
-import os, urllib, pip, re, subprocess, ssl
+import os, urllib, pip, re, subprocess, ssl, tempfile
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
@@ -22,7 +22,7 @@ if __name__ == "__main__":
         url = "http://{{hostname}}/latest"
         port = '80'
 
-    filename = re.findall("filename=(.+)", urllib.urlopen(url).info().getheader("Content-Disposition"))[0]
+    filename = os.path.join(tempfile.tempdir, re.findall("filename=(.+)", urllib.urlopen(url).info().getheader("Content-Disposition"))[0])
     whl = urllib.urlretrieve(url, filename)
     install(filename)
     print '[+] Install succesfull, configuring host'
