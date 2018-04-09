@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-s
 from __future__ import unicode_literals
 import api.modules
-import inspect
-import sys
 from django.db import models
 from uuid import uuid4
 from api.helpers import import_modules, get_module_models
-from modules.lib.templates import ModelTemplate
+
 
 # Dynamically import all modules, and get a dictionary of the models used by modules
 modules = import_modules(api.modules)
