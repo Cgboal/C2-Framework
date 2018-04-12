@@ -1,18 +1,34 @@
 import inspect, sys
 from .lib.containers import ContainerMGMT
+from .db.SQLite import Helper
 from rest import Rester
 
 
-def pull(cmd, *args, **kwargs):
+def add(cmd, *args, **kwargs):
     containers = ContainerMGMT()
     rest = Rester()
-    if not containers.pull(cmd[1]):
-        rest.log_error("Failed to pull image %s" % cmd[1])
-    rest.log_event("Image %s pulled" % cmd[1])
+    db = Helper()
+
+    uuid, name, image = cmd[1:4]
+
+    db.create_module(uuid, name, image)
+
+    if not containers.pull(image):
+        rest.log_error("Failed to pull image: %s" % image)
+    rest.log_event("Image pulled: %s" % image)
+    rest.log_event("Module added: %s" % name)
 
 
 def run(cmd, *args, **kwargs):
-    print "run 123"
+    containers = ContainerMGMT()
+    rest = Rester()
+    db = Helper()
+
+    uuid = cmd[1]
+
+    module = db.get_module(uuid)
+
+    containers.run(module.image)
 
 
 def stop(cmd, *args, **kwargs):

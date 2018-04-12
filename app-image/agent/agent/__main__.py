@@ -53,7 +53,6 @@ def exec_cmd(cmd, cmd_id):
     parts = cmd.split(" ")
     print verbs
     if parts[0] in verbs:
-        print "ayy"
         func = verbs[parts[0]]
         func(parts)
     rest.commandComplete(cmd_id)
