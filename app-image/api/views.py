@@ -108,11 +108,13 @@ class ReportViewSet(viewsets.ViewSet):
         module = Module.objects.get(id=module_id)
         agent = Agent.objects.get(uuid=agent_id)
 
+        # TODO Re-enable this
+        """
         try:
             agent_module = Agent_Module.objects.get(agent_id=agent, module_id=module)
         except ObjectDoesNotExist:
             return HttpResponseForbidden()
-
+        """
         post_data['data']['agent_id'] = agent
         new_entry = module_models[post_data['table']](**post_data['data'])
         new_entry.save()
