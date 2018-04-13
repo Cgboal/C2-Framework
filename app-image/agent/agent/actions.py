@@ -28,8 +28,7 @@ def run(cmd, *args, **kwargs):
 
     module = db.get_module(uuid)
 
-    containers.run(module.image)
-
+    containers.run(module.image, module.uuid)
 
 def stop(cmd, *args, **kwargs):
     print "stop"

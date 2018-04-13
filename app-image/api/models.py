@@ -51,12 +51,13 @@ class Agent_Command_History(models.Model):
 
 
 class Module(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.TextField(max_length=64)
     image = models.TextField(max_length=256, unique=True)
     enabled = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return self.name + ":" + self.uuid
 
 
 class Agent_Module(models.Model):
