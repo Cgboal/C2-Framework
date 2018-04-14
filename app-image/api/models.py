@@ -65,6 +65,11 @@ class Agent_Module(models.Model):
     module_id = models.ForeignKey(Module, on_delete=models.CASCADE)
 
 
+class Group_Module(models.Model):
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
+    module_id = models.ForeignKey(Module, on_delete=models.CASCADE)
+
+
 class Log(models.Model):
     message = models.TextField()
     type = models.TextField(max_length=5)

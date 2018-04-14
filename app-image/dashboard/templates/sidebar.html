@@ -45,8 +45,9 @@
         </li>
         <li><a><i class="fa fa-cubes"></i> Modules <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
+                <li><a href="/module/add">Add Module</a></li>
               {% for module in modules %}
-                  <li><a href="#">{{ module.name }}</a></li>
+                  <li><a href="/module/{{ module.uuid }}">{{ module.name }}</a></li>
               {% endfor %}
           </ul>
         </li>
