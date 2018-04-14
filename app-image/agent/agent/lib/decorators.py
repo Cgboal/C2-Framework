@@ -19,7 +19,10 @@ class Request(object):
     def __call__(self, uri, proto='GET', data=None):
         def decorator(callback):
             def wrapper():
-                resp = self.http.request(proto, self.url + uri, data).data
+                try:
+                    resp = self.http.request(proto, self.url + uri, data).data
+                except Exception as e:
+                    pass
                 return callback(resp)
             return wrapper
         return decorator
