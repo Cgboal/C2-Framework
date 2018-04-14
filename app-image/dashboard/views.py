@@ -105,10 +105,13 @@ class ModuleCreateView(View):
         if request.FILES:
             uploaded_file = request.FILES["file"]
             module_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/api/modules/" + uploaded_file.name
-            with open(module_path, 'wb+') as destination:
-                for chunk in uploaded_file.chunks():
-                    destination.write(chunk)
-                return HttpResponse("Module upload successful")
+            module_backup_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/module_library" + uploaded_file.name
+            file_locations = [module_path, module_backup_path]
+            for path in file_locations:
+                with open(path, 'wb+') as destination:
+                    for chunk in uploaded_file.chunks():
+                        destination.write(chunk)
+            return HttpResponse("Module upload successful")
         elif request.POST.get("apply"):
             import subprocess
             restart = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/assimilate.sh"
