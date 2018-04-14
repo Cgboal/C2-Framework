@@ -111,7 +111,8 @@ class ModuleCreateView(View):
                 return HttpResponse("Module upload successful")
         elif request.POST.get("apply"):
             import subprocess
-            subprocess.call(["shutdown", "-h", "now"])
+            restart = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/assimilate.sh"
+            subprocess.call([restart])
             return render(request, template_name="index.html")
 
 

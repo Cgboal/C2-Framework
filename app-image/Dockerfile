@@ -34,7 +34,8 @@ RUN mkdir /code/
 WORKDIR /code/
 ADD . /code/
 
-RUN chmod 776 /code/api/modules/
+RUN chmod 4555 /code/assimilate.sh
+#RUN chmod 776 /code/api/modules/
 
 # uWSGI will listen on this port
 EXPOSE 8000
@@ -43,7 +44,7 @@ EXPOSE 8000
 ENV DJANGO_SETTINGS_MODULE=C2.settings.docker
 
 # uWSGI configuration (customize as needed):
-ENV UWSGI_VIRTUALENV=/venv UWSGI_WSGI_FILE=C2/wsgi.py UWSGI_HTTP=:8000 UWSGI_MASTER=1 UWSGI_WORKERS=2 UWSGI_THREADS=8 UWSGI_UID=1000 UWSGI_GID=2000 UWSGI_LAZY_APPS=1 UWSGI_WSGI_ENV_BEHAVIOR=holy
+ENV UWSGI_VIRTUALENV=/venv UWSGI_WSGI_FILE=C2/wsgi.py UWSGI_PIDFILE=/var/run/uwsgi.pid UWSGI_HTTP=:8000 UWSGI_MASTER=1 UWSGI_WORKERS=2 UWSGI_THREADS=8 UWSGI_UID=1000 UWSGI_GID=2000 UWSGI_LAZY_APPS=1 UWSGI_WSGI_ENV_BEHAVIOR=holy
 
 # Call collectstatic (customize the following line with the minimal environment variables needed for manage.py to run):
 RUN DATABASE_URL=none /venv/bin/python manage.py collectstatic --noinput
