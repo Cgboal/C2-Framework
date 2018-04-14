@@ -35,7 +35,7 @@ WORKDIR /code/
 ADD . /code/
 
 RUN chmod 4555 /code/assimilate.sh
-RUN chmod 777 /code/api/modules/
+RUN chmod 777 /code/api/modules
 
 
 # uWSGI will listen on this port
