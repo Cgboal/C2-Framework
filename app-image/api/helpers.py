@@ -13,7 +13,7 @@ def import_modules(package):
 
 
 def get_module_models(module_list):
-    from api.modules.lib.templates import ModelTemplate
+    from api.lib.templates import ModelTemplate
     module_models = {}
     for module in module_list:
         for member in module[1]:
