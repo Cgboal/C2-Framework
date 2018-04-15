@@ -46,6 +46,7 @@ class LoginView(View):
         else:
             return render(request, template_name='login.html')
 
+
 def logout_view(request):
     logout(request)
     return redirect('/')
@@ -126,6 +127,19 @@ class ModuleView(View):
         module = Module.objects.get(uuid=module_id)
         context['module'] = module
 
+
+class RunView(View):
+    
+    def get(self, request, group_id=None):
+        if not group_id:
+            return HttpResponse(status=400)
+        group = Group.objects.get(id=group_id)
+        group_modules = Module.objects.filter(group_module__group_id=group)
+        for module in group_modules:
+            command_str = "run %s" % module.uuid
+            command = Command(cmd=command_str, group_id=group)
+            command.save()
+        return IndexView.get(request)
 
 @login_required
 def command_view(request):
