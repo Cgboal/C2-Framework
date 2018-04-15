@@ -52,6 +52,7 @@ def logout_view(request):
 
 
 class GroupCreateView(View):
+    
     def get(self, request):
         context = get_nav_context(request)
         return render(request, template_name='group_create_form.html', context=context)
@@ -66,6 +67,7 @@ class GroupCreateView(View):
             group = Group(name=name)
             group.save()
             for module in modules:
+                module = Module.objects.get(uuid=module)
                 group_module = Group_Module(group_id=group, module_id=module)
                 group_module.save()
                 command_string = "add %s %s %s" % (module.uuid, module.name, module.image)
@@ -77,6 +79,7 @@ class GroupCreateView(View):
                 agent_group.save()
 
                 for module in modules:
+                    module = Module.objects.get(uuid=module)
                     agent_module, created = Agent_Module.objects.get_or_create(agent_id=agent, module_id=module)
                     agent_module.save()
                     
