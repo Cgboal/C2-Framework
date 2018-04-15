@@ -3,71 +3,79 @@
 {% block title %} Create Group {% endblock title %}
 
 {% block content %}
-  <div class="right_col" role="main">
-    <div class="">
-      <div class="page-title">
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
 
-        <div class="title_right">
-        </div>
-      </div>
-      <div class="clearfix"></div>
-
-      <div class="row">
-
-        <div class="col-md-6 col-sm-6 col-xs-6">
-          <div class="x_panel">
-            <div class="x_title">
-
-              <h2>Agents <small>{{ group.name }}</small></h2>
-              <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-              </ul>
-                 <div class="clearfix"></div>
-            </div>
-                <div class="x_content">
-                <ul>
-                    {% for agent in agents_group %}
-                        <li class="row list-unstyled">
-                            <a class="col-md-9 col-sm-9 col-xs-9" href="/agent/{{ agent.uuid }}/">{{ agent.name }}</a>
-                            <form class="col-md-3 col-sm-3 col-xs-3" action="/group/{{ group.id }}/" method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="agent_uuid" value="{{ agent.uuid }}">
-                                <input class="btn" type="submit" name="action" value="delete">
-                            </form>
-                        </li>
-                    {% endfor %}
-                </ul>
-                </div>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-6">
-          <div class="x_panel">
-            <div class="x_title">
-
-              <h2>Modules <small>{{ group.name }}</small></h2>
-              <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-              </ul>
-                <div class="clearfix"></div>
-            </div>
-                <div class="x_content">
-                    {% for module in modules_group %}
-                        <a href="/module/{{ module.id }}/">{{ module.name }}</a>
-                    {% endfor %}
+                <div class="title_right">
                 </div>
             </div>
-          </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="x_panel">
+                        <div class="x_title">
+
+                            <h2>Agents
+                                <small>{{ group.name }}</small>
+                            </h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <ul>
+                                {% for agent in agents_group %}
+                                    <li class="row list-unstyled">
+                                        <a class="col-md-9 col-sm-9 col-xs-9"
+                                           href="/agent/{{ agent.uuid }}/">{{ agent.name }}</a>
+                                        <form class="col-md-3 col-sm-3 col-xs-3" action="/group/{{ group.id }}/"
+                                              method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="agent_uuid" value="{{ agent.uuid }}">
+                                            <input class="btn" type="submit" name="action" value="delete">
+                                        </form>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="x_panel">
+                            <div class="x_title">
+
+                                <h2>Modules
+                                    <small>{{ group.name }}</small>
+                                </h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a href="/run/{{ group.id }}/">Run all</a></li>
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                {% for module in modules_group %}
+                                    <a href="/module/{{ module.id }}/">{{ module.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-      </div>
 {% endblock content %}
 
 {% block javascripts %}
-  {{ block.super}}
+    {{ block.super }}
 
 {% endblock javascripts %}

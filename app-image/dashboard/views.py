@@ -139,7 +139,7 @@ class RunView(View):
             command_str = "run %s" % module.uuid
             command = Command(cmd=command_str, group_id=group)
             command.save()
-        return IndexView.get(request)
+        return redirect("/")
 
 @login_required
 def command_view(request):

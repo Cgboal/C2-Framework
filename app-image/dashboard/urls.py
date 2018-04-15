@@ -14,5 +14,5 @@ urlpatterns = [
     url(r'^group/(?P<group_id>\w+)/$', login_required(GroupView.as_view())),
     url(r'^module/add', login_required(ModuleCreateView.as_view())),
     url(r'^module/(?P<module_id>\w+)/$', login_required(ModuleView.as_view())),
-    url(r'run/(?P<group_id>)/$', login_required(RunView.as_view()))
+    url(r'run/(?P<group_id>\w+)/$', login_required(RunView.as_view()))
 ]
