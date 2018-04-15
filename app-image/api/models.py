@@ -57,7 +57,7 @@ class Module(models.Model):
     enabled = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name + ":" + self.uuid
+        return self.name + ":" + str(self.uuid)
 
 
 class Agent_Module(models.Model):

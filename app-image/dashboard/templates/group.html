@@ -64,8 +64,8 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                {% for module in modules_group %}
-                                    <a href="/module/{{ module.id }}/">{{ module.name }}</a>
+                                {% for module in group_modules %}
+                                    <a href="/module/{{ module.uuid }}/">{{ module.name }}</a>
                                 {% endfor %}
                             </div>
                         </div>
