@@ -1,5 +1,6 @@
 #!/bin/sh
 /bin/sleep 4;
+chmod 777 /code/api/modules
 echo > /code/api/modules/__init__.py
 echo > /code/api/migrations__init__.py
 /venv/bin/python manage.py makemigrations --noinput
