@@ -25,7 +25,6 @@ class PersistenceMGMT(object):
     def darwin(self, command, delete=False):
         self.linux(command, delete)
 
-
     def linux(self, command, delete=False):
         user = getuser()
         cron = CronTab(user=user)

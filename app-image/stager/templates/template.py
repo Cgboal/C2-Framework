@@ -1,5 +1,4 @@
 import os, urllib, pip, re, subprocess, ssl, tempfile
-ssl._create_default_https_context = ssl._create_unverified_context
 
 
 def install(package):

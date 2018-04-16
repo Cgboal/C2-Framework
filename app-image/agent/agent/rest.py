@@ -49,10 +49,13 @@ class Rester():
         return handle()
 
     def log_event(self, message):
+        print "[*] Event: %s" % message
         self.log(message, 'event')
 
     def log_action(self, message):
+        print "[+] Action: %s" % message
         self.log(message, 'action')
 
     def log_error(self, message):
+        print "[-] Error: %s" % message
         self.log(message, 'error')
