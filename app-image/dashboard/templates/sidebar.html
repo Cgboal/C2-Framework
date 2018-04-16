@@ -30,7 +30,7 @@
         </li>
         <li><a><i class="fa fa-sitemap"></i> Groups <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="/group/create">Create Group</a></li>
+            <li><a href="/group/create/">Create Group</a></li>
             {% for group in groups %}
               <li><a href="/group/{{ group.id }}/">{{ group.name }}</a></li>
             {% endfor %}
@@ -45,7 +45,7 @@
         </li>
         <li><a><i class="fa fa-cubes"></i> Modules <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-                <li><a href="/module/add">Add Module</a></li>
+                <li><a href="/module/add/">Add Module</a></li>
               {% for module in modules %}
                   <li><a href="/module/{{ module.uuid }}/">{{ module.name }}</a></li>
               {% endfor %}

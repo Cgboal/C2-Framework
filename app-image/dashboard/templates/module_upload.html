@@ -42,12 +42,12 @@
             <div class="x_content">
                 <p>Drag multiple C2F module files to the box below for multi upload or click to select modules. </p>
                 <p><b>Note:</b> Assimilating modules is required in order to create the new database tables. Assimilation will result in brief downtime.</p>
-              <form action="/module/add" class="dropzone">{% csrf_token %}</form>
+              <form action="/module/add/" class="dropzone">{% csrf_token %}</form>
               <br />
               <br />
               <br />
               <br />
-              <form action="/module/add" method="post">
+              <form action="/module/add/" method="post">
                   <button type="submit" class="form-control" name="apply" value="True">Assimilate Modules</button>
                   {% csrf_token %}
               </form>
