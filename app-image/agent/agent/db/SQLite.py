@@ -40,7 +40,7 @@ class Helper(object):
 
     def create_module(self, uuid, name, image):
         c = self.conn.cursor()
-        query = "INSERT INTO modules (uuid, name, image) values ('%s', '%s', '%s')" % (uuid, name, image)
+        query = "INSERT OR REPLACE INTO modules (uuid, name, image) values ('%s', '%s', '%s')" % (uuid, name, image)
         status = c.execute(query)
         self.conn.commit()
         c.close()

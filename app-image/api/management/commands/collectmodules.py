@@ -17,5 +17,5 @@ class Command(BaseCommand):
                 if mname == "Descriptor":
                     class_ = getattr(module[0], mname)
                     instance = class_()
-                    m, output = Module.objects.get_or_create(name=instance.name, image=instance.image)
+                    m, output = Module.objects.get_or_create(image=instance.image, defaults={'name': instance.name})
                     print("Added module %s" % instance.name)
