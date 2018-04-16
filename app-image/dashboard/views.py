@@ -143,7 +143,7 @@ class RunView(View):
         return redirect("/")
 
 
-class Agentview(View):
+class AgentView(View):
 
     def get(self, request, agent_id=None):
         agent = Agent.objects.get(uuid=agent_id)
