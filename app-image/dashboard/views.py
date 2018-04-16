@@ -154,7 +154,7 @@ class AgentView(View):
             "logs": logs
         }
 
-        return render(request, template_name-'agent.html', context=context)
+        return render(request, template_name='agent.html', context=context)
 
 
 @login_required
