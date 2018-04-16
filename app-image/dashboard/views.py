@@ -7,7 +7,8 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from api.models import Group, Command, Agent_Command_History, Agent_Group, Agent, Module, Agent_Module, Group_Module
+from api.models import Group, Command, Agent_Command_History, Agent_Group, Agent, Module, Agent_Module, Group_Module, \
+    Log
 # Create your views here.
 
 
@@ -63,7 +64,7 @@ class GroupCreateView(View):
         name = request.POST.get('group-name')
         description = request.POST.get('description')
         agents = request.POST.getlist('agent')
-        modules = request.POST.getlist('modules')
+        modules = request.POST.getlist('module')
         if name:
             group = Group(name=name)
             group.save()
@@ -140,6 +141,21 @@ class RunView(View):
             command = Command(cmd=command_str, group_id=group)
             command.save()
         return redirect("/")
+
+
+class AgentView(View):
+
+    def get(self, request, agent_id=None):
+        agent = Agent.objects.get(uuid=agent_id)
+        logs = Log.objects.filter(agent=agent)
+
+        context = {
+            "agent": agent,
+            "logs": logs
+        }
+
+        return render(request, template_name-'agent.html', context=context)
+
 
 @login_required
 def command_view(request):

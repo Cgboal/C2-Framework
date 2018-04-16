@@ -32,14 +32,14 @@
           <ul class="nav child_menu">
             <li><a href="/group/create">Create Group</a></li>
             {% for group in groups %}
-              <li><a href="/group/{{ group.id }}">{{ group.name }}</a></li>
+              <li><a href="/group/{{ group.id }}/">{{ group.name }}</a></li>
             {% endfor %}
           </ul>
         </li>
         <li><a><i class="fa fa-desktop"></i> Agents <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             {% for agent in agents %}
-              <li><a href="#">{{ agent.name }}</a></li>
+              <li><a href="/agent/{{ agent.uuid }}/">{{ agent.name }}</a></li>
             {% endfor %}
           </ul>
         </li>
@@ -47,7 +47,7 @@
           <ul class="nav child_menu">
                 <li><a href="/module/add">Add Module</a></li>
               {% for module in modules %}
-                  <li><a href="/module/{{ module.uuid }}">{{ module.name }}</a></li>
+                  <li><a href="/module/{{ module.uuid }}/">{{ module.name }}</a></li>
               {% endfor %}
           </ul>
         </li>
