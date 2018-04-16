@@ -51,7 +51,6 @@ def exec_cmd(cmd, cmd_id):
     rest = Rester()
     verbs = actions.verbs
     parts = cmd.split(" ")
-    print verbs
     if parts[0] in verbs:
         func = verbs[parts[0]]
         func(parts)
@@ -66,6 +65,7 @@ def api_loop():
         commands = rest.beacon()
         map(lambda cmd: exec_cmd(cmd['cmd'], cmd['id']), commands)
         sleep(10)
+
 
 if __name__ == "__main__":
     main()

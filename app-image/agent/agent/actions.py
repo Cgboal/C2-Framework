@@ -29,6 +29,7 @@ def run(cmd, *args, **kwargs):
     module = db.get_module(uuid)
 
     containers.run(module.image, module.uuid)
+    rest.log_action("Module execute: %s" % module.name)
 
 def stop(cmd, *args, **kwargs):
     print "stop"

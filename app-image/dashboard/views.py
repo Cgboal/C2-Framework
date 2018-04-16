@@ -128,6 +128,7 @@ class ModuleView(View):
         context = get_nav_context(request)
         module = Module.objects.get(uuid=module_id)
         context['module'] = module
+        return render(request, template_name='module.html', context=context)
 
 
 class RunView(View):
