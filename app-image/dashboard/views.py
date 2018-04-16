@@ -104,7 +104,8 @@ class GroupView(View):
 class ModuleCreateView(View):
 
     def get(self, request):
-        return render(request, template_name='module_upload.html')
+        context = get_nav_context(request)
+        return render(request, template_name='module_upload.html', context=context)
 
     def post(self, request):
         if request.FILES:
@@ -118,7 +119,7 @@ class ModuleCreateView(View):
             import subprocess
             restart = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/assimilate.sh"
             subprocess.call([restart])
-            return render(request, template_name="index.html")
+            return redirect("/")
 
 
 class ModuleView(View):
@@ -146,10 +147,11 @@ class RunView(View):
 class AgentView(View):
 
     def get(self, request, agent_id=None):
+        context = get_nav_context(request)
         agent = Agent.objects.get(uuid=agent_id)
         logs = Log.objects.filter(agent=agent)
 
-        context = {
+        context += {
             "agent": agent,
             "logs": logs
         }
