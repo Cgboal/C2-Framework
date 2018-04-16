@@ -151,10 +151,8 @@ class AgentView(View):
         agent = Agent.objects.get(uuid=agent_id)
         logs = Log.objects.filter(agent=agent)
 
-        context += {
-            "agent": agent,
-            "logs": logs
-        }
+        context["agent"] = agent
+        context["logs"] = logs
 
         return render(request, template_name='agent.html', context=context)
 
