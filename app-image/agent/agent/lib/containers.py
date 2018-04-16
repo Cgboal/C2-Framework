@@ -22,7 +22,7 @@ class ContainerMGMT:
 
         # Set name of container so it can be stopped later for updates,
         kwargs['name'] = module_id
-
+        kwargs['auto_remove'] = True
         kwargs['detach'] = True
         self.client.containers.run(image, command, **kwargs)
 
