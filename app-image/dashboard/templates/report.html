@@ -50,6 +50,7 @@
                                                  aria-labelledby="headingOne">
                                                 <div class="panel-body">
                                                     {% for table in report.tables %}
+                                                        {{ table.name }}
                                                     <table id="datatable-buttons"
                                                            class="table table-striped table-bordered">
                                                         <thead>
