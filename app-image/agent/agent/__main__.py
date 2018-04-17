@@ -3,6 +3,7 @@ from os import sys, path
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import actions
+import json
 from .rest import Rester
 from .lib.persistance import PersistenceMGMT
 from .lib.containers import ContainerMGMT
@@ -61,6 +62,7 @@ def init():
 def exec_cmd(cmd, cmd_id):
     rest = Rester()
     verbs = actions.verbs
+    cmd = json.loads(cmd)
     action = cmd["action"]
     if action in verbs:
         func = verbs[action]
