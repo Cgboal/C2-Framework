@@ -76,7 +76,7 @@ class GroupCreateView(View):
                 command_string = {
                     "action": "add",
                     "module": {
-                        "uuid": module.uuid,
+                        "uuid": str(module.uuid),
                         "name": module.name,
                         "image": module.image
                     }
@@ -150,7 +150,7 @@ class RunView(View):
             command_str = {
                 "action": "run",
                 "module": {
-                    "uuid": module.uuid
+                    "uuid": str(module.uuid)
                 },
                 "args": json.loads(module.args)
             }
