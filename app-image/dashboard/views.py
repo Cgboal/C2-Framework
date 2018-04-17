@@ -188,6 +188,7 @@ class ReportView(View):
 
             context["outer"] = group
             context["inner"] = modules
+            context["inner_type"] = "modules"
             context["reports"] = {}
 
             for module in modules:
