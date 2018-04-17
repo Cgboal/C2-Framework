@@ -33,7 +33,7 @@ RUN set -ex \
     && apk add --update nodejs
 
 RUN set -ex \
-    && nmp install particles.js
+    && npm install particles.js
 
 # Copy your application code to the container (make sure you create a .dockerignore file if any large files or directories should be excluded)
 RUN mkdir /code/
