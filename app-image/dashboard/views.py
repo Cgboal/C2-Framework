@@ -2,14 +2,19 @@
 from __future__ import unicode_literals
 import os
 import json
+import api.modules
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from api.helpers import *
+
 from api.models import Group, Command, Agent_Command_History, Agent_Group, Agent, Module, Agent_Module, Group_Module, \
-    Log
+    Log, Module_Table
+
+module_models = get_module_models(import_modules(api.modules))
 # Create your views here.
 
 
@@ -170,6 +175,62 @@ class AgentView(View):
         context["logs"] = logs
 
         return render(request, template_name='agent.html', context=context)
+
+
+class ReportView(View):
+
+    def get(self, request, report_type=None, group_id=None, entity_uuid=None):
+        context = {}
+        if report_type == "group":
+            group = Group.objects.get(id=group_id)
+            agents = Agent.objects.filter(agent_group__group_id=group)
+            modules = Module.objects.filter(group_module__group_id=group)
+
+            context["outer"] = group
+            context["inner"] = modules
+            context["reports"] = {}
+
+            for module in modules:
+                context["reports"][module.name] = {}
+                tables = Module_Table.objects.filter(module_id=module)
+                for table in tables:
+                    model = module_models[table.name]
+                    context["reports"][module.name][table.name] = {}
+                    context["reports"][module.name][table.name]["columns"] = [f.name for f in model.__meta.get_fields()]
+                    context["reports"][module.name][table.name]["column_count"] = len(context["reports"][module.name]["columns"])
+                    context["reports"][module.name][table.name]["entries"] = model.objects.filter(agent_id__in=agents)
+
+        return HttpResponse(json.dumps(context))
+
+        """
+        elif report_type == "agent":
+            agent = Agent.objects.get(uuid=entity_uuid)
+            groups = Group.objects.filter(agent_group__agent_id=agent)
+            modules = Module.objects.filter(group_module__group_id__in=groups)
+            tables = Module_Table.objects.filter(module_id__in=modules)
+
+        elif report_type == "module":
+            module = Module.objects.get(uuid=entity_uuid)
+            groups = Group.objects.filter(group_module__module_id=module)
+            agents = Agent.objects.filter(agent_group__group_id__in=groups)
+            tables = Module_Table.objects.filter(module_id=module)
+
+        context = {
+            "outer": {
+                "modules": modules
+            },
+            "inner": {
+                "groups": groups,
+                "agents": agents
+
+            },
+            "reports": {
+                module.name: {
+                    "table_name": [results]
+                }
+            }
+        }
+        """
 
 
 @login_required

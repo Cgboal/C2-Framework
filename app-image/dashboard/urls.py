@@ -1,6 +1,6 @@
 from django.urls import path
 from dashboard.views import IndexView, LoginView, command_view, GroupCreateView, logout_view, GroupView, \
-    ModuleCreateView, ModuleView, RunView, AgentView
+    ModuleCreateView, ModuleView, RunView, AgentView, ReportView
 
 from django.contrib.auth.decorators import login_required
 
@@ -15,5 +15,8 @@ urlpatterns = [
     path('module/add/', login_required(ModuleCreateView.as_view())),
     path('module/<uuid:module_id>/', login_required(ModuleView.as_view())),
     path('run/<int:group_id>/', login_required(RunView.as_view())),
-    path('agent/<uuid:agent_id>/', login_required(AgentView.as_view()))
+    path('agent/<uuid:agent_id>/', login_required(AgentView.as_view())),
+    path('report/<string:report_type>/<int:group_id>/', login_required(ReportView.as_view())),
+    path('report/<string:report_type>/<uuid:entity_uuid>/', login_required(ReportView.as_view())),
+
 ]
