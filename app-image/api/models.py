@@ -60,6 +60,11 @@ class Module(models.Model):
         return self.name + ":" + str(self.uuid)
 
 
+class Module_Table(models.Model):
+    module_id = models.ForeignKey(Module, on_delete=models.CASCADE)
+    table_name = models.TextField()
+
+
 class Agent_Module(models.Model):
     agent_id = models.ForeignKey(Agent, on_delete=models.CASCADE)
     module_id = models.ForeignKey(Module, on_delete=models.CASCADE)
