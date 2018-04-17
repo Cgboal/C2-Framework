@@ -30,7 +30,7 @@ RUN set -ex \
     && apk del .build-deps
 
 RUN set -ex \
-    && apk add --update nodejs nodejs-npm
+    && apk add --update nodejs
 
 RUN set -ex \
     && nmp install particles.js
