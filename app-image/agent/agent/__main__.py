@@ -21,6 +21,17 @@ def parse_args():
     return args
 
 
+command = {
+    "command": "run",
+    "module": {
+        "uuid": "id",
+        "image": "cgboal:blah"
+    },
+    "args": {
+        "net": "host"
+    }
+}
+
 def update_config(db, args):
     if args.host:
         db.set_config('c2_host', args.host)
@@ -50,10 +61,10 @@ def init():
 def exec_cmd(cmd, cmd_id):
     rest = Rester()
     verbs = actions.verbs
-    parts = cmd.split(" ")
-    if parts[0] in verbs:
-        func = verbs[parts[0]]
-        func(parts)
+    action = cmd["action"]
+    if action in verbs:
+        func = verbs[action]
+        func(cmd)
     rest.commandComplete(cmd_id)
 
 

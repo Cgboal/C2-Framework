@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-s
 from __future__ import unicode_literals
 import api.modules
+import json
 from django.db import models
 from uuid import uuid4
 from api.helpers import import_modules, get_module_models
@@ -54,6 +55,7 @@ class Module(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.TextField(max_length=64)
     image = models.TextField(max_length=256, unique=True)
+    args = models.TextField(default=json.dumps({}))
     enabled = models.BooleanField(default=True)
 
     def __str__(self):

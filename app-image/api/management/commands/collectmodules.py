@@ -1,5 +1,6 @@
 import api.modules
 import inspect
+import json
 from api.helpers import import_modules
 from hashlib import sha256
 from django.core.management.base import BaseCommand, CommandError
@@ -18,7 +19,11 @@ class Command(BaseCommand):
                 if mname == "Descriptor":
                     class_ = getattr(module[0], mname)
                     instance = class_()
-                    m, output = Module.objects.get_or_create(image=instance.image, defaults={'name': instance.name})
+                    module_args = {}
+                    if instance.args:
+                        module_args = instance.args
+                    module_args = json.dumps(module_args)
+                    m, output = Module.objects.get_or_create(image=instance.image, defaults={'name': instance.name, 'args': module_args})
                     print("Added module %s" % instance.name)
                 elif issubclass(member[1], ModelTemplate):
                     module_table, output = Module_Table.objects.get_or_create(module_id=module, table_name=member[0])

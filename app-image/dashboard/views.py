@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import os
+import json
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -72,8 +73,15 @@ class GroupCreateView(View):
                 module = Module.objects.get(uuid=module)
                 group_module = Group_Module(group_id=group, module_id=module)
                 group_module.save()
-                command_string = "add %s %s %s" % (module.uuid, module.name, module.image)
-                new_command = Command(cmd=command_string, group_id=group)
+                command_string = {
+                    "action": "add",
+                    "module": {
+                        "uuid": module.uuid,
+                        "name": module.name,
+                        "image": module.image
+                    }
+                }
+                new_command = Command(cmd=json.dumps(command_string), group_id=group)
                 new_command.save()
             for agent in agents:
                 agent = Agent.objects.get(uuid=agent)
@@ -139,8 +147,14 @@ class RunView(View):
         group = Group.objects.get(id=group_id)
         group_modules = Module.objects.filter(group_module__group_id=group)
         for module in group_modules:
-            command_str = "run %s" % module.uuid
-            command = Command(cmd=command_str, group_id=group)
+            command_str = {
+                "action": "run",
+                "module": {
+                    "uuid": module.id
+                },
+                "args": json.loads(module.args)
+            }
+            command = Command(cmd=json.dumps(command_str), group_id=group)
             command.save()
         return redirect("/")
 

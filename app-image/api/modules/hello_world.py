@@ -4,7 +4,7 @@ from api.lib.templates import ModelTemplate
 
 class Descriptor(object):
     def __init__(self):
-        self.name = "Hello World"
+        self.name = "Hello-World"
         self.image = "cgboal/c2f-modules:HelloWorld"
 
 

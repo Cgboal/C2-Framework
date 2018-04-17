@@ -9,8 +9,8 @@ def add(cmd, *args, **kwargs):
     rest = Rester()
     db = Helper()
 
-    uuid, name, image = cmd[1:4]
-
+    module = cmd["module"]
+    uuid, name, image = module["uuid"], module["name"], module["image"]
     db.create_module(uuid, name, image)
 
     if not containers.pull(image):
@@ -24,11 +24,13 @@ def run(cmd, *args, **kwargs):
     rest = Rester()
     db = Helper()
 
-    uuid = cmd[1]
+    uuid = cmd["module"]["uuid"]
+
+    args = cmd["args"]
 
     module = db.get_module(uuid)
 
-    containers.run(module.image, module.uuid)
+    containers.run(module.image, module.uuid, **args)
     rest.log_action("Module executed: %s" % module.name)
 
 def stop(cmd, *args, **kwargs):
