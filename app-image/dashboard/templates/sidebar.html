@@ -23,10 +23,28 @@
             <ul class="nav side-menu">
                 <li><a><i class="fa fa-bar-chart-o"></i> Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="index.html">Groups</a></li>
-                        <ul></ul>
-                        <li><a href="index2.html">Agents</a></li>
-                        <li><a href="index3.html">Modules</a></li>
+                        <li><a>Groups <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                {% for group in groups %}
+                                <li><a href="/report/group/{{ group.id }}/">{{ group.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a>Agents <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                {% for agent in agents %}
+                                    <li><a href="/report/agent/{{ agent.uuid }}/">{{ agent.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+
+                        <li><a>Modules <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                                {% for module in modules %}
+                                    <li><a href="/report/module/{{ module.uuid }}/">{{ module.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a><i class="fa fa-sitemap"></i> Groups <span class="fa fa-chevron-down"></span></a>
