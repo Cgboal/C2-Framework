@@ -16,7 +16,7 @@ urlpatterns = [
     path('module/<uuid:module_id>/', login_required(ModuleView.as_view())),
     path('run/<int:group_id>/', login_required(RunView.as_view())),
     path('agent/<uuid:agent_id>/', login_required(AgentView.as_view())),
-    path('report/<string:report_type>/<int:group_id>/', login_required(ReportView.as_view())),
-    path('report/<string:report_type>/<uuid:entity_uuid>/', login_required(ReportView.as_view())),
+    path('report/<str:report_type>/<int:group_id>/', login_required(ReportView.as_view())),
+    path('report/<str:report_type>/<uuid:entity_uuid>/', login_required(ReportView.as_view())),
 
 ]
