@@ -180,7 +180,7 @@ class AgentView(View):
 class ReportView(View):
 
     def get(self, request, report_type=None, group_id=None, entity_uuid=None):
-        context = {}
+        context = {"report_type": report_type.capitalize()}
         if report_type == "group":
             group = Group.objects.get(id=group_id)
             agents = Agent.objects.filter(agent_group__group_id=group)
@@ -200,7 +200,7 @@ class ReportView(View):
                     context["reports"][module.name][table.name]["column_count"] = len(context["reports"][module.name]["columns"])
                     context["reports"][module.name][table.name]["entries"] = model.objects.filter(agent_id__in=agents)
 
-        return HttpResponse(json.dumps(context))
+        return render(request, template_name='report.html', context=context)
 
         """
         elif report_type == "agent":
