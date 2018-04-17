@@ -29,6 +29,12 @@ RUN set -ex \
     && apk add --virtual .python-rundeps $runDeps \
     && apk del .build-deps
 
+RUN set -ex \
+    && apk add --update nodejs nodejs-npm
+
+RUN set -ex \
+    && nmp install particles.js
+
 # Copy your application code to the container (make sure you create a .dockerignore file if any large files or directories should be excluded)
 RUN mkdir /code/
 WORKDIR /code/
