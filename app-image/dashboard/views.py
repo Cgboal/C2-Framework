@@ -150,7 +150,7 @@ class RunView(View):
             command_str = {
                 "action": "run",
                 "module": {
-                    "uuid": module.id
+                    "uuid": module.uuid
                 },
                 "args": json.loads(module.args)
             }

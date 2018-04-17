@@ -30,6 +30,7 @@ def run(cmd, *args, **kwargs):
 
     module = db.get_module(uuid)
 
+    rest.log_action("Module executing: %s" % module.name)
     containers.run(module.image, module.uuid, **args)
     rest.log_action("Module executed: %s" % module.name)
 
