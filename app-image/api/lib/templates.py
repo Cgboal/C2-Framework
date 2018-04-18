@@ -7,3 +7,7 @@ class ModelTemplate(models.Model):
     class Meta:
         app_label = "api"
         abstract = True
+
+
+class Descriptor(object):
+    args = {}

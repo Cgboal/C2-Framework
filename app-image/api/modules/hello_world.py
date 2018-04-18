@@ -1,11 +1,10 @@
 from django.db import models
-from api.lib.templates import ModelTemplate
+from api.lib.templates import ModelTemplate, Descriptor
 
 
-class Descriptor(object):
-    def __init__(self):
-        self.name = "Hello-World"
-        self.image = "cgboal/c2f-modules:HelloWorld"
+class HelloWorld(Descriptor):
+    name = "Hello-World"
+    image = "cgboal/c2f-modules:HelloWorld"
 
 
 class HelloWorldResult(ModelTemplate):

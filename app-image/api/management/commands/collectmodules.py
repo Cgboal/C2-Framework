@@ -5,7 +5,7 @@ from api.helpers import import_modules
 from hashlib import sha256
 from django.core.management.base import BaseCommand, CommandError
 from api.models import Module, Module_Table
-from api.lib.templates import ModelTemplate
+from api.lib.templates import ModelTemplate, Descriptor
 
 
 class Command(BaseCommand):
@@ -16,7 +16,7 @@ class Command(BaseCommand):
         for module in module_list:
             for member in module[1]:
                 mname = member[0]
-                if mname == "Descriptor":
+                if issubclass(member[1], Descriptor):
                     class_ = getattr(module[0], mname)
                     instance = class_()
                     module_args = {}
