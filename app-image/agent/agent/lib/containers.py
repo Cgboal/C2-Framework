@@ -1,6 +1,7 @@
 import docker
 from ..db.SQLite import Helper
 
+
 class ContainerMGMT:
     def __init__(self):
         self.client = docker.from_env()
@@ -9,7 +10,7 @@ class ContainerMGMT:
     def run(self, image, module_id, command=None, **kwargs):
         db = Helper()
 
-        if ssl == db.get_config('ssl'):
+        if db.get_config('ssl') == "True":
             c2_url = "https://%s:%s" % (db.get_config('c2_host'), db.get_config('c2_port'))
         else:
             c2_url = "http://%s:%s" % (db.get_config('c2_host'), db.get_config('c2_port'))
