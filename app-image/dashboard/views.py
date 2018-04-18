@@ -200,7 +200,7 @@ class ReportView(View):
                 for table in tables:
                     model = module_models[table.name]
                     entries = serializers.serialize("python", model.objects.filter(agent_id__in=agents))
-                    columns = [key for key, value in entries[0].fields.items]
+                    columns = [field for field in entries.fields]
                     context["reports"][module.name]["tables"] = {}
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
