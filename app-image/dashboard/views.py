@@ -61,7 +61,7 @@ def logout_view(request):
 
 
 class GroupCreateView(View):
-    
+
     def get(self, request):
         context = get_nav_context(request)
         return render(request, template_name='group_create_form.html', context=context)
@@ -98,7 +98,7 @@ class GroupCreateView(View):
                     module = Module.objects.get(uuid=module)
                     agent_module, created = Agent_Module.objects.get_or_create(agent_id=agent, module_id=module)
                     agent_module.save()
-                    
+
         return render(request, template_name='index.html', context=context)
 
 
@@ -146,7 +146,7 @@ class ModuleView(View):
 
 
 class RunView(View):
-    
+
     def get(self, request, group_id=None):
         if not group_id:
             return HttpResponse(status=400)
@@ -203,7 +203,7 @@ class ReportView(View):
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
                     context["reports"][module.name]["tables"][table.name]["columns"] = [f.name for f in model._meta.get_fields()]
-                    context["reports"][module.name]["tables"][table.name]["entries"] = model.objects.all().values()
+                    context["reports"][module.name]["tables"][table.name]["entries"] = serializers.serialize("python",model.objects.all())
 
         return render(request, template_name='report.html', context=context)
 
@@ -211,7 +211,7 @@ class ReportView(View):
 
         """
         elif report_type == "agent":
-            agent = Agent.objects.get(uuid=entity_uuid)
+            agent = Agent.objects.get(uuid=entity_uuid)1425786=
             groups = Group.objects.filter(agent_group__agent_id=agent)
             modules = Module.objects.filter(group_module__group_id__in=groups)=
             module = Module.objects.get(uuid=entity_uuid)

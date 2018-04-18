@@ -63,7 +63,7 @@
                                                             <tbody>
                                                             {% for entry in table.entries %}
                                                                 <tr>
-                                                                    {% for field, value in entry %}
+                                                                    {% for field, value in entry.fields.items %}
                                                                         <td>{{ value }}</td>
                                                                     {% endfor %}
                                                                 </tr>
