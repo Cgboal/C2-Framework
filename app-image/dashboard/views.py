@@ -203,7 +203,7 @@ class ReportView(View):
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
                     context["reports"][module.name]["tables"][table.name]["columns"] = [f.name for f in model._meta.get_fields()]
-                    context["reports"][module.name]["tables"][table.name]["entries"] = serializers.serialize("python", model.objects.all())
+                    context["reports"][module.name]["tables"][table.name]["entries"] = model.objects.all().values()
 
         return render(request, template_name='report.html', context=context)
 
