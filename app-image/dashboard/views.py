@@ -200,7 +200,7 @@ class ReportView(View):
                 for table in tables:
                     model = module_models[table.name]
                     entries = serializers.serialize("python", model.objects.filter(agent_id__in=agents))
-                    columns = [field for field, value in entries[0]["fields"].items]
+                    columns = [field for field in entries[0]["fields"]]
                     context["reports"][module.name]["tables"] = {}
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
@@ -213,9 +213,9 @@ class ReportView(View):
 
         """
         elif report_type == "agent":
-            agent = Agent.objects.get(uuid=entity_uuid)1425786=
+            agent = Agent.objects.get(uuid=entity_uuid)
             groups = Group.objects.filter(agent_group__agent_id=agent)
-            modules = Module.objects.filter(group_module__group_id__in=groups)=
+            modules = Module.objects.filter(group_module__group_id__in=groups)
             module = Module.objects.get(uuid=entity_uuid)
             groups = Group.objects.filter(group_module__module_id=module)
             agents = Agent.objects.filter(agent_group__group_id__in=groups)
