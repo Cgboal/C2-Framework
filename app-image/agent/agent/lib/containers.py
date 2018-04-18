@@ -6,13 +6,13 @@ class ContainerMGMT:
         self.client = docker.from_env()
         self.containers = self.client.containers.list()
 
-    def run(self, image, module_id, **kwargs):
+    def run(self, image, module_id, command=None, **kwargs):
         db = Helper()
 
-        proto = "http://"
-        if db.get_config("ssl") == "True":
-            proto = "https://"
-        c2_url = "%s%s%s" % (proto, db.get_config('c2_host'), db.get_config('c2_port'))
+        if ssl == db.get_config('ssl'):
+            c2_url = "https://%s:%s" % (db.get_config('c2_host'), db.get_config('c2_port'))
+        else:
+            c2_url = "http://%s:%s" % (db.get_config('c2_host'), db.get_config('c2_port'))
 
         kwargs['environment'] = {
             "C2_URL": c2_url,
@@ -24,7 +24,7 @@ class ContainerMGMT:
         kwargs['name'] = module_id
         kwargs['auto_remove'] = True
         kwargs['detach'] = False
-        print self.client.containers.run(image, **kwargs)
+        print self.client.containers.run(image, command, **kwargs)
 
     def pull(self, name):
         if ":" in name:

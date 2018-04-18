@@ -21,18 +21,6 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-
-command = {
-    "command": "run",
-    "module": {
-        "uuid": "id",
-        "image": "cgboal:blah"
-    },
-    "args": {
-        "net": "host"
-    }
-}
-
 def update_config(db, args):
     if args.host:
         db.set_config('c2_host', args.host)
