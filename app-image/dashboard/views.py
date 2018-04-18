@@ -205,7 +205,7 @@ class ReportView(View):
                     context["reports"][module.name]["tables"] = {}
                     if len(entries) == 0:
                         context["reports"][module.name]["tables"][table.name]["name"] = tables.name + " - No entries"
-                        break
+                        continue
                     columns = [field for field in entries[0]["fields"]]
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
@@ -232,7 +232,7 @@ class ReportView(View):
                     context["reports"][module.name]["tables"] = {}
                     if len(entries) == 0:
                         context["reports"][module.name]["tables"][table.name]["name"] = tables.name + " - No entries"
-                        break
+                        continue
                     columns = [field for field in entries[0]["fields"]]
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
