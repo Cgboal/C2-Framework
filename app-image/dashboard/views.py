@@ -188,7 +188,7 @@ class ReportView(View):
 
             context["outer"] = group
             context["inner"] = modules
-            context["inner_type"] = "modules"
+            context["inner_type"] = "Modules"
             context["reports"] = {}
 
             for module in modules:
@@ -196,7 +196,7 @@ class ReportView(View):
                 context["reports"][module.name]["name"] = module.name
                 tables = Module_Table.objects.filter(module_id=module)
                 for table in tables:
-                    model = module_models[table_name]
+                    model = module_models[table.table_name]
                     context["reports"][module.name]["tables"] = {}
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
