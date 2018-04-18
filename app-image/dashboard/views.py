@@ -199,11 +199,13 @@ class ReportView(View):
                 tables = Module_Table.objects.filter(module_id=module)
                 for table in tables:
                     model = module_models[table.name]
+                    entries = serializers.serialize("python", model.objects.filter(agent_id__in=agents))
+                    columns = [key for key, value in entries[0].fields.items]
                     context["reports"][module.name]["tables"] = {}
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
-                    context["reports"][module.name]["tables"][table.name]["columns"] = [f.name for f in model._meta.get_fields()]
-                    context["reports"][module.name]["tables"][table.name]["entries"] = serializers.serialize("python",model.objects.all())
+                    context["reports"][module.name]["tables"][table.name]["columns"] = columns
+                    context["reports"][module.name]["tables"][table.name]["entries"] = entries
 
         return render(request, template_name='report.html', context=context)
 
