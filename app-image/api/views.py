@@ -105,7 +105,7 @@ class ReportViewSet(viewsets.ViewSet):
         module_id = post_data['module_id']
         agent_id = post_data['agent_id']
 
-        module = Module.objects.get(id=module_id)
+        module = Module.objects.get(uuid=module_id)
         agent = Agent.objects.get(uuid=agent_id)
 
         # TODO Re-enable this
