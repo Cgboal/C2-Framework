@@ -193,13 +193,16 @@ class ReportView(View):
 
             for module in modules:
                 context["reports"][module.name] = {}
+                context["report"][module.name]["name"] = module.name
                 tables = Module_Table.objects.filter(module_id=module)
                 for table in tables:
                     model = module_models[table.name]
-                    context["reports"][module.name][table.name] = {}
-                    context["reports"][module.name][table.name]["columns"] = [f.name for f in model.__meta.get_fields()]
-                    context["reports"][module.name][table.name]["column_count"] = len(context["reports"][module.name]["columns"])
-                    context["reports"][module.name][table.name]["entries"] = model.objects.filter(agent_id__in=agents)
+                    context["reports"][module.name]["tables"] = {}
+                    context["reports"][module.name]["tables"][table.name] = {}
+                    context["reports"][module.name]["tables"][table.name]["name"] = table.name
+                    context["reports"][module.name]["tables"][table.name]["columns"] = [f.name for f in model.__meta.get_fields()]
+                    context["reports"][module.name]["tables"][table.name]["column_count"] = len(context["reports"][module.name]["columns"])
+                    context["reports"][module.name]["tables"][table.name]["entries"] = model.objects.filter(agent_id__in=agents)
 
         return render(request, template_name='report.html', context=context)
 
