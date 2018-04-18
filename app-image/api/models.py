@@ -64,7 +64,7 @@ class Module(models.Model):
 
 class Module_Table(models.Model):
     module_id = models.ForeignKey(Module, on_delete=models.CASCADE)
-    table_name = models.TextField()
+    name = models.TextField()
 
 
 class Agent_Module(models.Model):

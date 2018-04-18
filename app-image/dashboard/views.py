@@ -180,7 +180,8 @@ class AgentView(View):
 class ReportView(View):
 
     def get(self, request, report_type=None, group_id=None, entity_uuid=None):
-        context = {"report_type": report_type.capitalize()}
+        context = get_nav_context(request)
+        context["report_type"] = report_type.capitalize()
         if report_type == "group":
             group = Group.objects.get(id=group_id)
             agents = Agent.objects.filter(agent_group__group_id=group)
@@ -196,7 +197,7 @@ class ReportView(View):
                 context["reports"][module.name]["name"] = module.name
                 tables = Module_Table.objects.filter(module_id=module)
                 for table in tables:
-                    model = module_models[table.table_name]
+                    model = module_models[table.name]
                     context["reports"][module.name]["tables"] = {}
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
@@ -210,10 +211,7 @@ class ReportView(View):
         elif report_type == "agent":
             agent = Agent.objects.get(uuid=entity_uuid)
             groups = Group.objects.filter(agent_group__agent_id=agent)
-            modules = Module.objects.filter(group_module__group_id__in=groups)
-            tables = Module_Table.objects.filter(module_id__in=modules)
-
-        elif report_type == "module":
+            modules = Module.objects.filter(group_module__group_id__in=groups)=
             module = Module.objects.get(uuid=entity_uuid)
             groups = Group.objects.filter(group_module__module_id=module)
             agents = Agent.objects.filter(agent_group__group_id__in=groups)
