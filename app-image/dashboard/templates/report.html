@@ -59,9 +59,8 @@
                                                                     <th>{{ column }}</th>
                                                                 {% endfor %}
                                                             </tr>
-                                                            </thead>
                                                             <tbody>
-                                                            {% for k, entry in table.entries %}
+                                                            {% for entry in table.entries %}
                                                                 <tr>
                                                                     {% for field, value in entry.fields.items %}
                                                                         <td>{{ value }}</td>
