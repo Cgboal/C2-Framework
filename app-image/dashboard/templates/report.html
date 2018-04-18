@@ -51,26 +51,27 @@
                                                 <div class="panel-body">
                                                     {% for k, table in report.tables.items %}
                                                         {{ table.name }}
-                                                    <table id="datatable-buttons"
-                                                           class="table table-striped table-bordered">
-                                                        <thead>
-                                                        <tr>
-                                                            {% for column in table.columns %}
-                                                                <th>{{ column }}</th>
+                                                        <table id="datatable-buttons"
+                                                               class="table table-striped table-bordered">
+                                                            <thead>
+                                                            <tr>
+                                                                {% for column in table.columns %}
+                                                                    <th>{{ column }}</th>
+                                                                {% endfor %}
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for k, entry in table.entries %}
+                                                                <tr>
+                                                                    {% for column in table.columns %}
+                                                                        <td>{{ entry.column }}</td>
+                                                                    {% endfor %}
+                                                                </tr>
                                                             {% endfor %}
-                                                        </tr>
-                                                        </thead>
-
-
-                                                        <tbody>
-                                                        {% for k, entry in table.entries %}
-                                                        <tr>
-                                                            {% for column in table.columns %}
-                                                                <td>{{ entry.column }}</td>
-                                                            {% endfor %}
-                                                        </tr>
-                                                        {% endfor %}
-                                                        </tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    {% endfor %}
+                                                </div>
                                             </div>
                                         </div>
                                     {% endfor %}
