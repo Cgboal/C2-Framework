@@ -201,15 +201,14 @@ class ReportView(View):
                     context["reports"][module.name]["tables"] = {}
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
-                    context["reports"][module.name]["tables"][table.name]["columns"] = [f.name for f in model.__meta.get_fields()]
+                    context["reports"][module.name]["tables"][table.name]["columns"] = [f.name for f in model._meta.get_fields()]
                     context["reports"][module.name]["tables"][table.name]["column_count"] = len(context["reports"][module.name]["columns"])
                     context["reports"][module.name]["tables"][table.name]["entries"] = model.objects.filter(agent_id__in=agents)
 
         return render(request, template_name='report.html', context=context)
-
         """
         elif report_type == "agent":
-            agent = Agent.objects.get(uuid=entity_uuid)
+            agent = Agent.objects.get(uuid=entity_uuid)1425786=
             groups = Group.objects.filter(agent_group__agent_id=agent)
             modules = Module.objects.filter(group_module__group_id__in=groups)=
             module = Module.objects.get(uuid=entity_uuid)
