@@ -204,7 +204,7 @@ class ReportView(View):
                     entries = serializers.serialize("python", model.objects.filter(agent_id__in=agents))
                     context["reports"][module.name]["tables"] = {}
                     if len(entries) == 0:
-                        context["reports"][module.name]["tables"][table.name]["name"] = tables.name + " - No entries"
+                        context["reports"][module.name]["tables"][table.name]["name"] = table.name + " - No entries"
                         continue
                     columns = [field for field in entries[0]["fields"]]
                     context["reports"][module.name]["tables"][table.name] = {}
@@ -231,7 +231,7 @@ class ReportView(View):
                     entries = serializers.serialize("python", model.objects.filter(agent_id=agent))
                     context["reports"][module.name]["tables"] = {}
                     if len(entries) == 0:
-                        context["reports"][module.name]["tables"][table.name]["name"] = tables.name + " - No entries"
+                        context["reports"][module.name]["tables"][table.name]["name"] = table.name + " - No entries"
                         continue
                     columns = [field for field in entries[0]["fields"]]
                     context["reports"][module.name]["tables"][table.name] = {}
