@@ -170,10 +170,12 @@ class AgentView(View):
     def get(self, request, agent_id=None):
         context = get_nav_context(request)
         agent = Agent.objects.get(uuid=agent_id)
-        logs = Log.objects.filter(agent=agent)
+        logs = Log.objects.filter(agent=agent).reverse()
+        modules = Module.objects.filter(agent_module__agent_id=agent)
 
         context["agent"] = agent
         context["logs"] = logs
+        context["agent_modules"] = modules
 
         return render(request, template_name='agent.html', context=context)
 
@@ -207,36 +209,42 @@ class ReportView(View):
                     context["reports"][module.name]["tables"][table.name]["columns"] = columns
                     context["reports"][module.name]["tables"][table.name]["entries"] = entries
 
-        return render(request, template_name='report.html', context=context)
-
-
-
-        """
         elif report_type == "agent":
             agent = Agent.objects.get(uuid=entity_uuid)
             groups = Group.objects.filter(agent_group__agent_id=agent)
             modules = Module.objects.filter(group_module__group_id__in=groups)
-            module = Module.objects.get(uuid=entity_uuid)
-            groups = Group.objects.filter(group_module__module_id=module)
-            agents = Agent.objects.filter(agent_group__group_id__in=groups)
-            tables = Module_Table.objects.filter(module_id=module)
 
-        context = {
-            "outer": {
-                "modules": modules
-            },
-            "inner": {
-                "groups": groups,
-                "agents": agents
+            context["outer"] = agent
+            context["inner"] = modules
+            context["inner_type"] = "Modules"
+            context["reports"] = {}
 
-            },
-            "reports": {
-                module.name: {
-                    "table_name": [results]
-                }
-            }
-        }
+            for module in modules:
+                context["reports"][module.name] = {}
+                context["reports"][module.name]["name"] = module.name
+                tables = Module_Table.objects.filter(module_id=module)
+                for table in tables:
+                    model = module_models[table.name]
+                    entries = serializers.serialize("python", model.objects.filter(agent_id=agent))
+                    columns = [field for field in entries[0]["fields"]]
+                    context["reports"][module.name]["tables"] = {}
+                    context["reports"][module.name]["tables"][table.name] = {}
+                    context["reports"][module.name]["tables"][table.name]["name"] = table.name
+                    context["reports"][module.name]["tables"][table.name]["columns"] = columns
+                    context["reports"][module.name]["tables"][table.name]["entries"] = entries
+
+        return render(request, template_name='report.html', context=context)
+
+
+
+
         """
+        module = Module.objects.get(uuid=entity_uuid)
+        groups = Group.objects.filter(group_module__module_id=module)
+        agents = Agent.objects.filter(agent_group__group_id__in=groups)
+        tables = Module_Table.objects.filter(module_id=module)
+        """
+
 
 
 @login_required
