@@ -193,7 +193,7 @@ class ReportView(View):
 
             for module in modules:
                 context["reports"][module.name] = {}
-                context["report"][module.name]["name"] = module.name
+                context["reports"][module.name]["name"] = module.name
                 tables = Module_Table.objects.filter(module_id=module)
                 for table in tables:
                     model = module_models[table.name]
