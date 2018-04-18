@@ -39,7 +39,7 @@
                             <div class="x_content">
 
                                 <div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
-                                    {% for report in reports %}
+                                    {% for k, report in reports.items %}
                                         <div class="panel">
                                             <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse"
                                                data-parent="#accordion1" href="#collapseOne1" aria-expanded="true"
@@ -49,7 +49,7 @@
                                             <div id="collapseOne1" class="panel-collapse collapse in" role="tabpanel"
                                                  aria-labelledby="headingOne">
                                                 <div class="panel-body">
-                                                    {% for table in report.tables %}
+                                                    {% for k, table in report.tables.items %}
                                                         {{ table.name }}
                                                     <table id="datatable-buttons"
                                                            class="table table-striped table-bordered">
