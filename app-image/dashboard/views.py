@@ -211,7 +211,7 @@ class ReportView(View):
 
         """
         elif report_type == "agent":
-            agent = Agent.objects.get(uuid=entity_uuid)1425786=
+            agent = Agent.objects.get(uuid=entity_uuid)
             groups = Group.objects.filter(agent_group__agent_id=agent)
             modules = Module.objects.filter(group_module__group_id__in=groups)=
             module = Module.objects.get(uuid=entity_uuid)
