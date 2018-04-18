@@ -6,7 +6,7 @@ class ContainerMGMT:
         self.client = docker.from_env()
         self.containers = self.client.containers.list()
 
-    def run(self, image, module_id, command=None, **kwargs):
+    def run(self, image, module_id, **kwargs):
         db = Helper()
 
         proto = "http://"
@@ -24,10 +24,7 @@ class ContainerMGMT:
         kwargs['name'] = module_id
         kwargs['auto_remove'] = True
         kwargs['detach'] = False
-        if command:
-            print self.client.containers.run(image, command, **kwargs)
-        else:
-            print self.client.containers.run(image, **kwargs)
+        print self.client.containers.run(image, **kwargs)
 
     def pull(self, name):
         if ":" in name:
