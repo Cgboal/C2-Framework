@@ -16,16 +16,14 @@ class Command(BaseCommand):
         for module in module_list:
             for member in module[1]:
                 mname = member[0]
-                if issubclass(member[1], Descriptor):
+                if issubclass(member[1], Descriptor) and mname != "Descriptor":
                     class_ = getattr(module[0], mname)
                     instance = class_()
-                    module_args = {}
-                    if instance.args:
-                        module_args = instance.args
+                    module_args = instance.args
                     module_args = json.dumps(module_args)
                     m, output = Module.objects.get_or_create(image=instance.image, defaults={'name': instance.name, 'args': module_args})
                     print("Added module %s" % instance.name)
-                elif issubclass(member[1], ModelTemplate):
+                elif issubclass(member[1], ModelTemplate) and mname != "ModelTemplate":
                     module_table, output = Module_Table.objects.get_or_create(module_id=module, table_name=member[0])
                     module_table.save()
 
