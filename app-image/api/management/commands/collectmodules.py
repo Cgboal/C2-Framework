@@ -25,5 +25,5 @@ class Command(BaseCommand):
                     print("Added module %s" % instance.name)
                 elif issubclass(member[1], ModelTemplate) and mname != "ModelTemplate":
                     module_table, output = Module_Table.objects.get_or_create(module_id=module, table_name=member[0])
-                    module_table.save()
+
 
