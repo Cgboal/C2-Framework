@@ -5,6 +5,7 @@ import json
 import api.modules
 from django.conf import settings
 from django.http import HttpResponse
+from django.core import serializers
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
@@ -202,9 +203,12 @@ class ReportView(View):
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
                     context["reports"][module.name]["tables"][table.name]["columns"] = [f.name for f in model._meta.get_fields()]
-                    context["reports"][module.name]["tables"][table.name]["entries"] = model.objects.filter(agent_id__in=agents)
+                    context["reports"][module.name]["tables"][table.name]["entries"] = serializers.serialize("python", model.objects.filter(agent_id__in=agents))
 
         return render(request, template_name='report.html', context=context)
+
+
+
         """
         elif report_type == "agent":
             agent = Agent.objects.get(uuid=entity_uuid)1425786=

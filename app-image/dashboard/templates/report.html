@@ -63,8 +63,8 @@
                                                             <tbody>
                                                             {% for k, entry in table.entries %}
                                                                 <tr>
-                                                                    {% for column in table.columns %}
-                                                                        <td>{{ entry.column }}</td>
+                                                                    {% for field, value in entries.fields.items %}
+                                                                        <td>{{ value }}</td>
                                                                     {% endfor %}
                                                                 </tr>
                                                             {% endfor %}
