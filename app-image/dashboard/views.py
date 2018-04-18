@@ -202,7 +202,6 @@ class ReportView(View):
                     context["reports"][module.name]["tables"][table.name] = {}
                     context["reports"][module.name]["tables"][table.name]["name"] = table.name
                     context["reports"][module.name]["tables"][table.name]["columns"] = [f.name for f in model._meta.get_fields()]
-                    context["reports"][module.name]["tables"][table.name]["column_count"] = len(context["reports"][module.name]["columns"])
                     context["reports"][module.name]["tables"][table.name]["entries"] = model.objects.filter(agent_id__in=agents)
 
         return render(request, template_name='report.html', context=context)
