@@ -63,18 +63,14 @@
 
 
                                                         <tbody>
+                                                        {% for k, entry in table.entries %}
                                                         <tr>
-                                                            <td>Tiger Nixon</td>
-                                                            <td>System Architect</td>
-                                                            <td>Edinburgh</td>
-                                                            <td>61</td>
-                                                            <td>2011/04/25</td>
-                                                            <td>$320,800</td>
+                                                            {% for column in table.columns %}
+                                                                <td>{{ entry.column }}</td>
+                                                            {% endfor %}
                                                         </tr>
+                                                        {% endfor %}
                                                         </tbody>
-                                                    </table>
-                                                {% endfor %}
-                                                </div>
                                             </div>
                                         </div>
                                     {% endfor %}
