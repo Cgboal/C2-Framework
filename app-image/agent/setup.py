@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name="C2F_Agent",
-      version="0.2.9",
+      version="0.2.10",
       description="The agent daemon component of the Command and Control framework",
       url="https://git.veldt.me/cgboal/C2-Framework",
       author="Calum Boal",
