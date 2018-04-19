@@ -11,4 +11,3 @@ class ModelTemplate(models.Model):
 
 class Descriptor(object):
     args = {}
-    environment = {}

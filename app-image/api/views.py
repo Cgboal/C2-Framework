@@ -123,4 +123,3 @@ class ReportViewSet(viewsets.ViewSet):
     # TODO add update method
     # def update(self, request, pk=None):
     #   pass
- 

@@ -15,9 +15,11 @@ class ContainerMGMT:
         else:
             c2_url = "http://%s:%s" % (db.get_config('c2_host'), db.get_config('c2_port'))
 
-        kwargs["environment"]["C2_URL"] = c2_url
-        kwargs["environment"]["AGENT_ID"] = db.get_config("uuid"),
-        kwargs["environment"]["MODULE_ID"] = module_id
+        kwargs['environment'] = {
+            "C2_URL": c2_url,
+            "AGENT_ID": db.get_config("uuid"),
+            "MODULE_ID": module_id
+        }
 
         # Set name of container so it can be stopped later for updates,
         kwargs['name'] = module_id

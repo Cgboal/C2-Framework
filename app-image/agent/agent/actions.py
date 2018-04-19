@@ -25,13 +25,15 @@ def run(cmd, *args, **kwargs):
     db = Helper()
 
     uuid = cmd["module"]["uuid"]
+
     args = cmd["args"]
-    args["environment"] = cmd["environment"]
+
     module = db.get_module(uuid)
 
     rest.log_action("Module executing: %s" % module.name)
     containers.run(module.image, module.uuid, **args)
     rest.log_action("Module executed: %s" % module.name)
+
 
 def stop(cmd, *args, **kwargs):
     print "stop"
