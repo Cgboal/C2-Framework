@@ -64,7 +64,7 @@ def init():
         local_ip = s.getsockname()[0]
         s.close()
 
-        interfaces = psutil.get_if_addrs()
+        interfaces = psutil.net_if_addrs()
         for interface, values in interfaces.iter_items():
             if local_ip == values.address:
                 netmask = values.netmask
