@@ -18,7 +18,9 @@ class ContainerMGMT:
         kwargs['environment'] = {
             "C2_URL": c2_url,
             "AGENT_ID": db.get_config("uuid"),
-            "MODULE_ID": module_id
+            "MODULE_ID": module_id,
+            "LOCAL_IP": db.get_config("local_ip"),
+            "NETMASK": db.get_config("netmask")
         }
 
         # Set name of container so it can be stopped later for updates,

