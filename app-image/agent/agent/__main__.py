@@ -67,7 +67,7 @@ def init():
         interfaces = psutil.net_if_addrs()
         for interface, values in interfaces.iteritems():
             if local_ip == values.address:
-                netmask = values.netmask
+                netmask = values[0].netmask
                 break
         db.set_config("local_ip", local_ip)
         db.set_config("netmask", netmask)
