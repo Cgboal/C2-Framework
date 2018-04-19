@@ -158,7 +158,8 @@ class RunView(View):
                 "module": {
                     "uuid": str(module.uuid)
                 },
-                "args": json.loads(module.args)
+                "args" : json.loads(module.args),
+                "environment": json.loads(module.environment)
             }
             command = Command(cmd=json.dumps(command_str), group_id=group)
             command.save()

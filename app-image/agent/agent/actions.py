@@ -25,9 +25,8 @@ def run(cmd, *args, **kwargs):
     db = Helper()
 
     uuid = cmd["module"]["uuid"]
-
     args = cmd["args"]
-
+    args["environment"] = cmd["environment"]
     module = db.get_module(uuid)
 
     rest.log_action("Module executing: %s" % module.name)
