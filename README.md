@@ -1,6 +1,9 @@
 # C2-Framework
 ------------
 ## Full docs: https://c2f.gitbook.io/docs
+## C2-SDK: https://github.com/Cgboal/C2-SDK
+## Example Modules: https://github.com/Cgboal/C2F-Modules
+------------
 
 Welcome to the documentation for the Command and Control development Framework, or, C2F. This project was created as part of an Honours thesis, and thus it is not currently suitable for deployment in production environments. Consider this a Proof of Concept. With that disclaimer out of the way, let's move on.
 
