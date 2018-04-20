@@ -3,7 +3,6 @@ from getpass import getuser
 from crontab import CronTab
 
 
-
 class PersistenceMGMT(object):
     def __init__(self):
         self.method = self.get_os()
