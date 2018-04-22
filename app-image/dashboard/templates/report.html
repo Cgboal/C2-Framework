@@ -47,16 +47,16 @@
                             </div>
                             <div class="x_content">
 
-                                <div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+                                <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
                                     {% for k, report in reports.items %}
                                         <div class="panel">
-                                            <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse"
-                                               data-parent="#accordion1" href="#collapseOne1" aria-expanded="true"
-                                               aria-controls="collapseOne">
+                                            <a class="panel-heading" role="tab" id="heading{{ forloop.counter }}" data-toggle="collapse"
+                                               data-parent="#accordion" href="#collapse{{ forloop.counter }}" aria-expanded="true"
+                                               aria-controls="collapse{{ forloop.counter }}">
                                                 <h4 class="panel-title">{{ report.name }}</h4>
                                             </a>
-                                            <div id="collapseOne1" class="panel-collapse collapse in" role="tabpanel"
-                                                 aria-labelledby="headingOne">
+                                            <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse in" role="tabpanel"
+                                                 aria-labelledby="heading{{ forloop.counter }}">
                                                 <div class="panel-body">
                                                     {% for k, table in report.tables.items %}
                                                         {{ table.name }}
@@ -84,7 +84,7 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                                <!-- end of accordion -->
+                                <!-- end of accord2ion -->
                             </div>
                         </div>
                     </div>

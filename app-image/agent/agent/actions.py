@@ -31,7 +31,11 @@ def run(cmd, *args, **kwargs):
     module = db.get_module(uuid)
 
     rest.log_action("Module executing: %s" % module.name)
-    containers.run(module.image, module.uuid, **args)
+    try:
+        containers.run(module.image, module.uuid, **args)
+    except Exception as e:
+        print e
+        rest.log_error("Error executing %s: %s" % (module.name, e))
     rest.log_action("Module executed: %s" % module.name)
 
 

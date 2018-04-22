@@ -27,6 +27,7 @@ class ContainerMGMT:
         kwargs['name'] = module_id
         kwargs['auto_remove'] = True
         kwargs['detach'] = False
+
         print self.client.containers.run(image, command, **kwargs)
 
     def pull(self, name):

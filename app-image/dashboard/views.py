@@ -36,6 +36,11 @@ class IndexView(View):
         if not request.user.is_authenticated:
             return redirect(settings.LOGIN_URL)
         context = get_nav_context(request)
+
+        context["actions"] = Log.objects.filter(type="action")
+        context["events"] = Log.objects.filter(type="event")
+        context["errors"] = Log.objects.filter(type="error")
+
         return render(request, template_name='index.html', context=context)
 
 

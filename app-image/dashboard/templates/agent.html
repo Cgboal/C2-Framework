@@ -15,7 +15,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel" style="height: auto;">
                             <div class="x_title">
-                                <h2>Reports</h2>
+                                <h2>Modules</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
                                     </li>
@@ -68,9 +68,9 @@
                                     {% if log.type == "error" %}
                                         <span class="label label-danger">Error:</span> {{ log.timestamp }} <p>{{ log.message }}</p>
                                     {% elif log.type == "action" %}
-                                        <span class="label label-success">Event:</span> {{ log.timestamp }} <p>{{ log.message }}</p>
+                                        <span class="label label-success">Action:</span> {{ log.timestamp }} <p>{{ log.message }}</p>
                                     {% elif log.type == "event" %}
-                                        <span class="label label-primary">Action:</span> {{ log.timestamp }} <p>{{ log.message }}</p>
+                                        <span class="label label-primary">Event:</span> {{ log.timestamp }} <p>{{ log.message }}</p>
                                     {% endif %}
                                     <div class="clearfix"></div>
                                 {% endfor %}
