@@ -55,7 +55,7 @@ class IndexView(View):
             context[data_name] = {}
             for i in range(0, 95):
                 data_sub_set = query_set.filter(timestamp__range=(time_threshold, old_time_threshold))
-                context[data_name] = {time_threshold.timestamp(): len(data_sub_set)}
+                context[data_name][time_threshold.timestamp()] = len(data_sub_set)
                 old_time_threshold, time_threshold = time_threshold, time_threshold - datetime.timedelta(minutes=30)
 
         return render(request, template_name='index.html', context=context)
