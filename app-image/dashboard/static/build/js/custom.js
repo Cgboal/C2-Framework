@@ -337,15 +337,15 @@ if (typeof NProgress != 'undefined') {
 		return new Date(year, month - 1, day).getTime();
 	}
 	  
-	
+
 	function init_flot_chart(){
-		
+
 		if( typeof ($.plot) === 'undefined'){ return; }
-		
+
 		console.log('init_flot_chart');
-		
-		
-		
+
+
+
 		var arr_data1 = [
 			[gd(2012, 1, 1), 17],
 			[gd(2012, 1, 2), 74],
@@ -365,7 +365,7 @@ if (typeof NProgress != 'undefined') {
 		  [gd(2012, 1, 6), 6],
 		  [gd(2012, 1, 7), 9]
 		];
-		
+
 		var arr_data3 = [
 			[0, 1],
 			[1, 9],
@@ -385,9 +385,9 @@ if (typeof NProgress != 'undefined') {
 			[15, 4],
 			[16, 9]
 		];
-		
+
 		var chart_plot_02_data = [];
-		
+
 		var chart_plot_03_data = [
 			[0, 1],
 			[1, 9],
@@ -407,13 +407,13 @@ if (typeof NProgress != 'undefined') {
 			[15, 4],
 			[16, 9]
 		];
-		
-		
+
+
 		for (var i = 0; i < 30; i++) {
 		  chart_plot_02_data.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
 		}
-		
-		
+
+
 		var chart_plot_01_settings = {
           series: {
             lines: {
@@ -458,7 +458,7 @@ if (typeof NProgress != 'undefined') {
           },
           tooltip: false
         }
-		
+
 		var chart_plot_02_settings = {
 			grid: {
 				show: true,
@@ -521,8 +521,8 @@ if (typeof NProgress != 'undefined') {
 				min: chart_plot_02_data[0][0],
 				max: chart_plot_02_data[20][0]
 			}
-		};	
-	
+		};
+
 		var chart_plot_03_settings = {
 			series: {
 				curvedLines: {
@@ -545,49 +545,49 @@ if (typeof NProgress != 'undefined') {
 				}
 			}
 		};
-        
-		
+
+
         if ($("#chart_plot_01").length){
 			console.log('Plot1');
-			
+
 			$.plot( $("#chart_plot_01"), [ arr_data1, arr_data2 ],  chart_plot_01_settings );
 		}
-		
-		
+
+
 		if ($("#chart_plot_02").length){
 			console.log('Plot2');
-			
-			$.plot( $("#chart_plot_02"), 
-			[{ 
-				label: "Email Sent", 
-				data: chart_plot_02_data, 
-				lines: { 
-					fillColor: "rgba(150, 202, 89, 0.12)" 
-				}, 
-				points: { 
-					fillColor: "#fff" } 
+
+			$.plot( $("#chart_plot_02"),
+			[{
+				label: "Email Sent",
+				data: chart_plot_02_data,
+				lines: {
+					fillColor: "rgba(150, 202, 89, 0.12)"
+				},
+				points: {
+					fillColor: "#fff" }
 			}], chart_plot_02_settings);
-			
+
 		}
-		
+
 		if ($("#chart_plot_03").length){
 			console.log('Plot3');
-			
-			
+
+
 			$.plot($("#chart_plot_03"), [{
 				label: "Registrations",
 				data: chart_plot_03_data,
 				lines: {
 					fillColor: "rgba(150, 202, 89, 0.12)"
-				}, 
+				},
 				points: {
 					fillColor: "#fff"
 				}
 			}], chart_plot_03_settings);
-			
+
 		};
-	  
-	} 
+
+	}
 	
 		
 	/* STARRR */

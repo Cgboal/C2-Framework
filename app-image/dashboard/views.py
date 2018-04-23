@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import os
 import json
+import datetime
 import api.modules
 from django.conf import settings
 from django.http import HttpResponse
@@ -40,6 +41,22 @@ class IndexView(View):
         context["actions"] = Log.objects.filter(type="action")
         context["events"] = Log.objects.filter(type="event")
         context["errors"] = Log.objects.filter(type="error")
+
+        graph_data_names = ["action_data", "event_data", "error_data"]
+        query_sets = [context["actions"], context["events"], context["errors"]]
+
+        base_time = datetime.datetime.now()
+
+        for data_name, query_set in zip(graph_data_names, query_sets):
+
+            time_threshold = base_time - datetime.timedelta(minutes=30)
+            old_time_threshold = base_time
+
+            context[data_name] = {}
+            for i in range(0, 95):
+                data_sub_set = query_set.filter(timestamp__range=(time_threshold, old_time_threshold))
+                context[data_name] = {time_threshold.timestamp(): len(data_sub_set)}
+                old_time_threshold, time_threshold = time_threshold, time_threshold - datetime.timedelta(minutes=30)
 
         return render(request, template_name='index.html', context=context)
 
