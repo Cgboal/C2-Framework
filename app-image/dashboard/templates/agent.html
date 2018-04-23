@@ -35,6 +35,13 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
+                                 {% for module in agent_modules %}
+                                     <h4><a href="/module/{{ module.uuid }}/">{{ module.name }}</a></h4>
+                                     <p>Uses Image: {{ module.image }}</p>
+                                     <p>Description:</p>
+                                     <p>{{ module.description }}</p>
+                                     <div class="clearfix"></div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

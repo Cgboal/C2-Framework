@@ -36,7 +36,8 @@ def run(cmd, *args, **kwargs):
     except Exception as e:
         print e
         rest.log_error("Error executing %s: %s" % (module.name, e))
-    rest.log_action("Module executed: %s" % module.name)
+    else:
+        rest.log_action("Module executed: %s" % module.name)
 
 
 def stop(cmd, *args, **kwargs):

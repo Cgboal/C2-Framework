@@ -163,7 +163,7 @@ class RunView(View):
                 "module": {
                     "uuid": str(module.uuid)
                 },
-                "args" : json.loads(module.args)
+                "args": json.loads(module.args)
             }
             command = Command(cmd=json.dumps(command_str), group_id=group)
             command.save()
@@ -175,7 +175,7 @@ class AgentView(View):
     def get(self, request, agent_id=None):
         context = get_nav_context(request)
         agent = Agent.objects.get(uuid=agent_id)
-        logs = Log.objects.filter(agent=agent).reverse()
+        logs = Log.objects.filter(agent=agent).order_by('timestamp')
         modules = Module.objects.filter(agent_module__agent_id=agent)
 
         context["agent"] = agent
