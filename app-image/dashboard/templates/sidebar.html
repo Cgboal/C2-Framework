@@ -58,7 +58,7 @@
                 <li><a><i class="fa fa-desktop"></i> Agents <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         {% for agent in agents %}
-                            <li>{% if agent.active %}<i class="fa fa-check"></i>{% elif not agent.active %}<i class="fa fa-close"></i>{% endif %} <a href="/agent/{{ agent.uuid }}/">{{ agent.name }}</a></li>
+                            <li><a href="/agent/{{ agent.uuid }}/">{{ agent.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
