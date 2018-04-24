@@ -45,7 +45,7 @@ class IndexView(View):
         graph_data = {
             "action_data": context["actions"],
             "event_data": context["events"],
-            "error_data": context["error"]
+            "error_data": context["errors"]
         }
 
         base_time = datetime.datetime.now()
