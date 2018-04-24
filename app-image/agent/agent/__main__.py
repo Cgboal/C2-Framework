@@ -30,7 +30,7 @@ def parse_args():
     parser.add_argument('--ssl', action='store_true', dest='ssl', help='Turn SSL usage on'),
     parser.add_argument('--no-ssl', action='store_false', dest='ssl', help="Turn SSL usage off")
     parser.add_argument('start')
-    parse.add_argument('stop')
+    parser.add_argument('stop')
     parser.add_argument('restart')
     args = parser.parse_args()
     return args
