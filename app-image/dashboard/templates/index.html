@@ -55,9 +55,10 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="row x_content">
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <div id="reports_over_time" data-stuff='["a","b","c"]' class="demo-placeholder"></div>
+                       <canvas id="reports_over_time"></canvas>
+                    </div>
                     </div>
 
                     <!-- end of weather widget -->
@@ -70,7 +71,6 @@
 
 {% block javascripts %}
     {{ block.super }}
-    <!-- Chart.js -->
     <script src="/static/vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- gauge.js -->
     <script src="/static/vendors/gauge.js/dist/gauge.min.js"></script>
@@ -93,70 +93,46 @@
     <script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
     <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <script>
-        var arr_events_data = [
-            {% for timestamp, count in event_data.items %}
-                [new Date({{ timestamp }}*1000), {{ count }}],
-            {% endfor %}
-        ];
-        var arr_actions_data = [
-            {% for timestamp, count in action_data.items %}
-                [new Date({{ timestamp }}*1000), {{ count }}],
-            {% endfor %}
-        ];
+    if ($('#reports_over_time').length ){
 
-        var arr_errors_data = [
-            {% for timestamp, count in error_data.items %}
-                [new Date({{ timestamp }}*1000), {{ count }}],
-            {% endfor %}
-        ];
-
-        var reports_over_time_settings = {
-              series: {
-                lines: {
-                  show: false,
-                  fill: true
-                },
-                splines: {
-                  show: true,
-                  tension: 0.4,
-                  lineWidth: 1,
-                  fill: 0.4
-                },
-                points: {
-                  radius: 0,
-                  show: true
-                },
-                shadowSize: 2
-              },
-              grid: {
-                verticalLines: true,
-                hoverable: true,
-                clickable: true,
-                tickColor: "#d5d5d5",
-                borderWidth: 1,
-                color: '#fff'
-              },
-              colors: ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
-              xaxis: {
-                tickColor: "rgba(51, 51, 51, 0.06)",
-                mode: "time",
-                //tickLength: 10,
-                axisLabel: "Date",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: 'Verdana, Arial',
-                axisLabelPadding: 10
-              },
-              yaxis: {
-                ticks: 8,
-                tickColor: "rgba(51, 51, 51, 0.06)",
-              },
-              tooltip: false
-        };
-        if ($("#reports_over_time").length){
-			console.log('Plotting reports over time');
-
-			$.plot( $("#reports_over_time"), [arr_actions_data, arr_events_data, arr_errors_data],  reports_over_time_settings );
-		}
+			  var ctx = document.getElementById("reports_over_time");
+			  var lineChart = new Chart(ctx, {
+				type: 'line',
+				data: {
+				  labels: [{% for timestamp, value in action_data.items %}new Date({{ timestamp }}*1000).getHours(), {% endfor %}],
+				  datasets: [{
+					label: "Agent Actions",
+					backgroundColor: "rgba(38, 185, 154, 0.31)",
+					borderColor: "rgba(38, 185, 154, 0.7)",
+					pointBorderColor: "rgba(38, 185, 154, 0.7)",
+					pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+					pointHoverBackgroundColor: "#fff",
+					pointHoverBorderColor: "rgba(220,220,220,1)",
+					pointBorderWidth: 1,
+					data: [{% for timestamp, value in action_data.items %}{{ value }}, {% endfor %}]
+				  }, {
+					label: "Agent Events",
+					backgroundColor: "rgba(3, 88, 106, 0.3)",
+					borderColor: "rgba(3, 88, 106, 0.70)",
+					pointBorderColor: "rgba(3, 88, 106, 0.70)",
+					pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+					pointHoverBackgroundColor: "#fff",
+					pointHoverBorderColor: "rgba(151,187,205,1)",
+					pointBorderWidth: 1,
+					data: [{% for timestamp, value in event_data.items %}{{ value }}, {% endfor %}]
+				  },{
+                    label: "Agent Errors",
+					backgroundColor: "rgba(3, 88, 106, 0.3)",
+					borderColor: "rgba(3, 88, 106, 0.70)",
+					pointBorderColor: "rgba(3, 88, 106, 0.70)",
+					pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+					pointHoverBackgroundColor: "#fff",
+					pointHoverBorderColor: "rgba(151,187,205,1)",
+					pointBorderWidth: 1,
+					data: [{% for timestamp, value in error_data.items %}{{ value }}, {% endfor %}]
+                  }],
+				},
+			  });
+    }
     </script>
 {% endblock javascripts %}
