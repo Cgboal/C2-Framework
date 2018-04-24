@@ -111,7 +111,7 @@
 					data: [{% for timestamp, value in action_data.items %}{{ value }}, {% endfor %}]
 				  }, {
 					label: "Agent Events",
-					backgroundColor: "rgba(3, 88, 106, 0.3)",
+                    backgroundColor: "rgba(38, 185, 154, 0.3)",
 					borderColor: "rgba(3, 88, 106, 0.70)",
 					pointBorderColor: "rgba(3, 88, 106, 0.70)",
 					pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
@@ -121,7 +121,7 @@
 					data: [{% for timestamp, value in event_data.items %}{{ value }}, {% endfor %}]
 				  },{
                     label: "Agent Errors",
-					backgroundColor: "rgba(38, 185, 154, 0.3)",
+                    backgroundColor: "rgba(3, 88, 106, 0.3)",
 					borderColor: "rgba(3, 88, 106, 0.70)",
 					pointBorderColor: "rgba(3, 88, 106, 0.70)",
 					pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
