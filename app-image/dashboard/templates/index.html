@@ -67,7 +67,7 @@
     </div>
     <script>
         var arr_events_data = [
-            {% for timestamp, count in event_data %}
+            {% for timestamp, count in event_data.items %}
                 [new Date(timestamp*1000), count],
             {% endfor %}
         ];
