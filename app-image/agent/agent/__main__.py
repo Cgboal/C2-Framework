@@ -1,16 +1,17 @@
-import argparse
-from os import sys, path
-
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import actions
+import argparse
 import json
 import socket
 import fcntl
 import struct
+import tempfile
 from threading import Thread
+from os import sys, path
 from .rest import Rester
 from .lib.persistance import PersistenceMGMT
 from .lib.containers import ContainerMGMT
+from .lib.daemon import Daemon
 from .db.SQLite import Helper
 from .settings import commands
 
@@ -100,5 +101,24 @@ def api_loop():
         sleep(10)
 
 
+class C2F_Daemon(Daemon):
+    def run(self):
+        main()
+
+
 if __name__ == "__main__":
-    main()
+    daemon = C2F_Daemon('%s/C2F_Agent.pid' % tempfile.gettempdir())
+    if len(sys.argv) >= 2:
+        if 'start' == sys.argv[1]:
+            daemon.start()
+        elif 'stop' == sys.argv[1]:
+            daemon.stop()
+        elif 'restart' == sys.argv[1]:
+            daemon.restart()
+        else:
+            print "Unknown command"
+            sys.exit(2)
+        sys.exit(0)
+    else:
+        print "usage: %s start|stop|restart" % sys.argv[0]
+        sys.exit(2)

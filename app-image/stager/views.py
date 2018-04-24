@@ -14,7 +14,7 @@ def StagerView(request):
         ssl = True
     else:
         ssl = False
-    response = render_to_response('template.py', context={'hostname' : hostname, 'ssl': ssl})
+    response = render_to_response('template.py', context={'hostname': hostname, 'ssl': ssl})
     response['Content-Disposition'] = 'attatchment; filename=stager.py'
     return response
 
