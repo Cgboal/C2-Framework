@@ -50,6 +50,9 @@ class CommandViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
+        agent = Agent.objects.get(uuid=pk)
+        agent.last_seen = timezone.now()
+        agent.save()
         groups = Agent_Group.objects.filter(agent_id=pk).values_list('group_id', flat=True)
         commands_group = Command.objects.filter(group_id__in=groups)
         commands_all_agents = Command.objects.filter(group_id=None)

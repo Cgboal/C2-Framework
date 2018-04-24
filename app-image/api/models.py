@@ -27,7 +27,7 @@ class Agent(models.Model):
     def active(self):
         time_delta = timezone.now() - self.last_seen
         time_delta_threshold = datetime.timedelta(seconds=30)
-        return time_delta > time_delta_threshold
+        return time_delta < time_delta_threshold
 
     def __str__(self):
         return self.name
