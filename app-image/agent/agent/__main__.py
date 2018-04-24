@@ -1,3 +1,4 @@
+from os import sys, path
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import actions
 import argparse
@@ -28,6 +29,9 @@ def parse_args():
                         help='Set port for C2 server')
     parser.add_argument('--ssl', action='store_true', dest='ssl', help='Turn SSL usage on'),
     parser.add_argument('--no-ssl', action='store_false', dest='ssl', help="Turn SSL usage off")
+    parser.add_argument('start')
+    parse.add_argument('stop')
+    parser.add_argument('restart')
     args = parser.parse_args()
     return args
 
@@ -110,13 +114,10 @@ if __name__ == "__main__":
     daemon = C2F_Daemon('%s/C2F_Agent.pid' % tempfile.gettempdir())
     if len(sys.argv) >= 2:
         if 'start' == sys.argv[1]:
-            sys.argv[1] = ""
             daemon.start()
         elif 'stop' == sys.argv[1]:
-            sys.argv[1] = ""
             daemon.stop()
         elif 'restart' == sys.argv[1]:
-            sys.argv[1] = ""
             daemon.restart()
         else:
             print "Unknown command"
