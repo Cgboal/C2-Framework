@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import api.modules
 import json
+import datetime
 from django.db import models
 from uuid import uuid4
 from api.helpers import import_modules, get_module_models
@@ -20,6 +21,12 @@ class Agent(models.Model):
     os = models.TextField(max_length=256)
     installed_at = models.DateTimeField(auto_now_add=True)
     last_seen = models.DateTimeField(auto_now=True)
+
+    @property
+    def active(self):
+        time_delta = datetime.datetime.now() - self.last_seen
+        time_delta_threshold = datetime.timedelta(seconds=30)
+        return time_delta > time_delta_threshold
 
     def __str__(self):
         return self.name
