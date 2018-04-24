@@ -198,7 +198,7 @@ class AgentView(View):
     def get(self, request, agent_id=None):
         context = get_nav_context(request)
         agent = Agent.objects.get(uuid=agent_id)
-        logs = Log.objects.filter(agent=agent).order_by('timestamp')
+        logs = reversed(Log.objects.filter(agent=agent))
         modules = Module.objects.filter(agent_module__agent_id=agent)
 
         context["agent"] = agent
