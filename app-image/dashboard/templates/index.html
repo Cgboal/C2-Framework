@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <div id="chart_plot_01" data-stuff='["a","b","c"]' class="demo-placeholder"></div>
+                        <div id="reports_over_time" data-stuff='["a","b","c"]' class="demo-placeholder"></div>
                     </div>
 
                     <!-- end of weather widget -->
@@ -68,7 +68,7 @@
     <script>
         var arr_events_data = [
             {% for timestamp, count in event_data.items %}
-                [new Date(timestamp*1000), count],
+                [new Date({{ timestamp }}*1000), {{ count }}],
             {% endfor %}
         ];
         var arr_actions_data = [
@@ -115,7 +115,6 @@
               xaxis: {
                 tickColor: "rgba(51, 51, 51, 0.06)",
                 mode: "time",
-                tickSize: [1, "day"],
                 //tickLength: 10,
                 axisLabel: "Date",
                 axisLabelUseCanvas: true,
@@ -132,7 +131,7 @@
         if ($("#reports_over_time").length){
 			console.log('Plotting reports over time');
 
-			$.plot( $("#reports_over_time"), [ arr_events_data],  reports_over_time_settings );
+			$.plot( $("#reports_over_time"), [arr_events_data],  reports_over_time_settings );
 		}
     </script>
 {% endblock content %}
