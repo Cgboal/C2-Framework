@@ -6,4 +6,4 @@ state_file = BASE_DIR + "/agent/state.p"
 
 settings_file_path = BASE_DIR + '/agent/settings.py'
 
-commands = ['c2d']
+commands = ['c2d start']
