@@ -1,6 +1,6 @@
 {% extends "base_site.html" %}
 
-{% block title %} Dashboard 1 {% endblock title %}
+{% block title %} Dashboard {% endblock title %}
 
 {% block stylesheets %}
     {{ block.super }}
@@ -39,13 +39,11 @@
 
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="dashboard_graph">
+                <div class="x_panel">
 
                     <div class="row x_title">
                         <div class="col-md-6">
-                            <h3>Network Activities
-                                <small>Graph title sub-title</small>
-                            </h3>
+                            <h3>Agent log activates</h3>
                         </div>
                         <div class="col-md-6">
                             <div id="reportrange" class="pull-right"
@@ -57,7 +55,7 @@
                     </div>
                     <div class="row x_content">
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                       <canvas id="reports_over_time"></canvas>
+                       <canvas id="reports_over_time" height="100Em"></canvas>
                     </div>
                     </div>
 
@@ -99,7 +97,7 @@
 			  var lineChart = new Chart(ctx, {
 				type: 'line',
 				data: {
-				  labels: [{% for timestamp, value in action_data.items %}new Date({{ timestamp }}*1000).getHours(), {% endfor %}],
+				  labels: [{% for timestamp, value in action_data.items %}new Date({{ timestamp }}*1000).toString().substring(16, 21), {% endfor %}],
 				  datasets: [{
 					label: "Agent Actions",
 					backgroundColor: "rgba(38, 185, 154, 0.31)",
@@ -122,7 +120,7 @@
 					data: [{% for timestamp, value in event_data.items %}{{ value }}, {% endfor %}]
 				  },{
                     label: "Agent Errors",
-					backgroundColor: "rgba(3, 88, 106, 0.3)",
+					backgroundColor: "rgba(38, 185, 154, 0.3)",
 					borderColor: "rgba(3, 88, 106, 0.70)",
 					pointBorderColor: "rgba(3, 88, 106, 0.70)",
 					pointBackgroundColor: "rgba(3, 88, 106, 0.70)",

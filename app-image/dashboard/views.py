@@ -52,15 +52,15 @@ class IndexView(View):
 
         for data_name, query_set in graph_data.items():
 
-            time_threshold = base_time - datetime.timedelta(hours=2)
+            time_threshold = base_time - datetime.timedelta(hours=4)
             old_time_threshold = base_time
 
             context[data_name] = {}
 
-            for i in range(0, 28):
+            for i in range(0, 12):
                 data_sub_set = query_set.filter(timestamp__range=(time_threshold, old_time_threshold))
                 context[data_name][time_threshold.timestamp()] = len(data_sub_set)
-                old_time_threshold, time_threshold = time_threshold, time_threshold - datetime.timedelta(hours=2)
+                old_time_threshold, time_threshold = time_threshold, time_threshold - datetime.timedelta(hours=4)
 
         return render(request, template_name='index.html', context=context)
 
