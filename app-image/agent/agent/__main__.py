@@ -110,10 +110,13 @@ if __name__ == "__main__":
     daemon = C2F_Daemon('%s/C2F_Agent.pid' % tempfile.gettempdir())
     if len(sys.argv) >= 2:
         if 'start' == sys.argv[1]:
+            sys.argv[1] = ""
             daemon.start()
         elif 'stop' == sys.argv[1]:
+            sys.argv[1] = ""
             daemon.stop()
         elif 'restart' == sys.argv[1]:
+            sys.argv[1] = ""
             daemon.restart()
         else:
             print "Unknown command"
