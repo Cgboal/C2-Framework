@@ -72,18 +72,16 @@
             {% endfor %}
         ];
         var arr_actions_data = [
-          [gd(2012, 1, 1), 82],
-          [gd(2012, 1, 2), 23],
-          [gd(2012, 1, 3), 66],
-          [gd(2012, 1, 4), 9],
-          [gd(2012, 1, 5), 119],
-          [gd(2012, 1, 6), 6],
-          [gd(2012, 1, 7), 9]
+            {% for timestamp, count in action_data.items %}
+                [new Date({{ timestamp }}*1000), {{ count }}],
+            {% endfor %}
         ];
 
-        var arr_errors_data = {
-
-        }
+        var arr_errors_data = [
+            {% for timestamp, count in error_data.items %}
+                [new Date({{ timestamp }}*1000), {{ count }}],
+            {% endfor %}
+        ];
 
         var reports_over_time_settings = {
               series: {
@@ -131,7 +129,7 @@
         if ($("#reports_over_time").length){
 			console.log('Plotting reports over time');
 
-			$.plot( $("#reports_over_time"), [arr_events_data],  reports_over_time_settings );
+			$.plot( $("#reports_over_time"), [arr_actions_data],  reports_over_time_settings );
 		}
     </script>
 {% endblock content %}
