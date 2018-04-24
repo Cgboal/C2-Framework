@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import os
 import json
+import collections
 import datetime
 import api.modules
 from django.conf import settings
@@ -12,6 +13,7 @@ from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from api.helpers import *
+
 
 from api.models import Group, Command, Agent_Command_History, Agent_Group, Agent, Module, Agent_Module, Group_Module, \
     Log, Module_Table
@@ -55,13 +57,13 @@ class IndexView(View):
             time_threshold = base_time - datetime.timedelta(hours=4)
             old_time_threshold = base_time
 
-            context[data_name] = {}
-
-            for i in range(0, 12):
+            context[data_name] = collections.OrderedDict
+            tmp_dict = {}
+            for i in range(0, 13):
                 data_sub_set = query_set.filter(timestamp__range=(time_threshold, old_time_threshold))
-                context[data_name][time_threshold.timestamp()] = len(data_sub_set)
+                tmp_dict[time_threshold.timestamp()] = len(data_sub_set)
                 old_time_threshold, time_threshold = time_threshold, time_threshold - datetime.timedelta(hours=4)
-
+            context[data_name] = collections.OrderedDict(sorted(tmp_dict.items(), key=lambda t: t[0], reverse=True))
         return render(request, template_name='index.html', context=context)
 
 
