@@ -61,9 +61,9 @@ class IndexView(View):
             tmp_dict = {}
             for i in range(0, 13):
                 data_sub_set = query_set.filter(timestamp__range=(time_threshold, old_time_threshold))
-                tmp_dict[time_threshold.timestamp()] = len(data_sub_set)
+                tmp_dict[old_time_threshold.timestamp()] = len(data_sub_set)
                 old_time_threshold, time_threshold = time_threshold, time_threshold - datetime.timedelta(hours=4)
-            context[data_name] = collections.OrderedDict(sorted(tmp_dict.items(), key=lambda t: t[0], reverse=True))
+            context[data_name] = collections.OrderedDict(sorted(tmp_dict.items(), key=lambda t: t[0]))
         return render(request, template_name='index.html', context=context)
 
 
