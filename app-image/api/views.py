@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
+from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseForbidden, HttpResponse
 from django.shortcuts import render
@@ -26,6 +27,8 @@ class AgentViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
         queryset = Agent.objects.all()
         agent = get_object_or_404(queryset, pk=pk)
+        agent.last_seen = timezone.now()
+        agent.save()
         serializer = AgentSerializer(agent)
         return Response(serializer.data)
 
