@@ -45,12 +45,6 @@ def update_config(db, args):
         db.set_config('ssl', str(args.ssl))
 
 
-def main(args=None):
-    db = Helper()
-    args = parse_args()
-    update_config(db, args)
-    init()
-    api_loop()
 
 
 def init():
@@ -107,10 +101,14 @@ def api_loop():
 
 class C2F_Daemon(Daemon):
     def run(self):
-        main()
+        db = Helper()
+        args = parse_args()
+        update_config(db, args)
+        init()
+        api_loop()
 
 
-if __name__ == "__main__":
+def main(args=None):
     daemon = C2F_Daemon('%s/C2F_Agent.pid' % tempfile.gettempdir())
     if len(sys.argv) >= 2:
         if 'start' == sys.argv[1]:
@@ -126,3 +124,7 @@ if __name__ == "__main__":
     else:
         print "usage: %s start|stop|restart" % sys.argv[0]
         sys.exit(2)
+
+
+if __name__ == "__main__":
+    main()
