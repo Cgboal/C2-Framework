@@ -42,12 +42,15 @@ class IndexView(View):
         context["events"] = Log.objects.filter(type="event")
         context["errors"] = Log.objects.filter(type="error")
 
-        graph_data_names = ["action_data", "event_data", "error_data"]
-        query_sets = [context["actions"], context["events"], context["errors"]]
+        graph_data = {
+            "action_data": context["actions"],
+            "event_data": context["events"],
+            "error_data": context["error"]
+        }
 
         base_time = datetime.datetime.now()
 
-        for data_name, query_set in zip(graph_data_names, query_sets):
+        for data_name, query_set in graph_data.items():
 
             time_threshold = base_time - datetime.timedelta(minutes=30)
             old_time_threshold = base_time
